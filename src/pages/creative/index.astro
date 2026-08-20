@@ -2,81 +2,117 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CreativeCard from '@/components/CreativeCard.astro';
 import { creativeWork } from '@/data/creative';
+
+const gaming = creativeWork.find((work) => work.slug === 'gaming-thumbnails');
+const rest = creativeWork.filter((work) => work.slug !== 'gaming-thumbnails');
 ---
 <BaseLayout
   title="Creative — Siddharth Sahoo"
   description="Video editing, gaming thumbnails, brand content and visual work by Siddharth Sahoo."
   pageClass="creative-page"
 >
-  <header class="page-hero">
+  <header class="page-hero page-hero-v2 creative-hero-v2" data-scroll-progress="viewport">
     <span class="kicker">02 / Creative</span>
     <h1>Hold the attention.</h1>
     <div class="page-hero-copy">
       <div class="micro">EDITING / GAMING / THUMBNAILS / SOCIAL / VISUAL SYSTEMS</div>
-      <p>I edit and design for screens where the viewer can leave instantly. The job is not to make every second louder. It is to know which seconds are allowed to be quiet.</p>
+      <p>I edit and design for screens where the viewer can leave instantly. The job is not to make every second louder. It is to know what deserves the eye next.</p>
     </div>
   </header>
 
-  <section class="section">
-    <div class="shell">
-      <div class="section-head" data-reveal>
-        <div><span class="kicker">Selected work</span></div>
-        <div>
-          <h2>Made for the feed. Not owned by it.</h2>
-          <p class="section-intro">Gaming thumbnails, retention-focused editing, brand work and visual experiments. No embedded social feed; the work gets to use its own space here.</p>
+  {gaming && gaming.media.length > 0 && (
+    <section class="creative-scroll-feature" data-scroll-progress="section" aria-labelledby="gaming-feature-title">
+      <div class="creative-scroll-stage">
+        <div class="creative-scroll-copy">
+          <span class="kicker">01 / YouTube + gaming</span>
+          <h2 id="gaming-feature-title">Readable<br/>at feed<br/>speed.</h2>
+          <p>Subject separation, lighting, typography and controlled noise. The point is not “more effects.” It is making the promise visible before the thumb stops scrolling.</p>
+          <a href="/creative/gaming-thumbnails/" class="text-link" data-case-link>CASE NOTES →</a>
+        </div>
+
+        <div class="creative-scroll-media" data-media-link data-cursor-text="VIEW">
+          <div class="creative-frame-stack">
+            {gaming.media.map((media, index) => (
+              <figure class:list={['creative-frame', `creative-frame-${index + 1}`]}>
+                <img src={media.src} alt={media.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" width="1027" height="578" />
+              </figure>
+            ))}
+          </div>
+          <div class="creative-frame-index" aria-hidden="true">
+            <span>01</span><span>02</span><span>03</span>
+          </div>
+          <div class="creative-detail creative-detail-one" aria-hidden="true">
+            <img src={gaming.media[0].src} alt="" loading="lazy" decoding="async" width="1027" height="578" />
+          </div>
+          {gaming.media[1] && (
+            <div class="creative-detail creative-detail-two" aria-hidden="true">
+              <img src={gaming.media[1].src} alt="" loading="lazy" decoding="async" width="1027" height="578" />
+            </div>
+          )}
+          <div class="creative-feature-notes" aria-hidden="true">
+            <span>FOCAL HIERARCHY</span>
+            <span>TYPE / LIGHT / SEPARATION</span>
+            <span>CLICK-READABLE FIRST</span>
+          </div>
         </div>
       </div>
-      <div class="creative-grid">
-        {creativeWork.map((work, index) => <CreativeCard work={work} index={index} />)}
+    </section>
+  )}
+
+  <section class="section creative-rest-section">
+    <div class="shell">
+      <div class="section-head kinetic-head" data-scroll-progress="viewport">
+        <div><span class="kicker">Editing / brand / experiments</span></div>
+        <div>
+          <h2>Pace first. Decoration second.</h2>
+          <p class="section-intro">I cut the drag before adding another zoom. Then I use motion, sound, subtitles and visual resets where they actually buy attention back.</p>
+        </div>
+      </div>
+      <div class="creative-grid creative-grid-v2">
+        {rest.map((work, index) => <CreativeCard work={work} index={index + 1} />)}
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="shell">
-      <div class="section-head" data-reveal>
-        <div><span class="kicker">Editing approach</span></div>
-        <div>
-          <h2>Retention is a pacing problem first.</h2>
-          <p class="section-intro">Slow intros, menu navigation, repetitive sequences, dead air and points already made twice are usually where attention leaks. I cut there before adding another zoom.</p>
-        </div>
-      </div>
-      <div class="process-grid">
-        <article class="process-item" data-reveal>
+  <section class="creative-process" data-scroll-progress="section" aria-label="Editing process">
+    <div class="creative-process-stage">
+      <div class="creative-process-track" aria-hidden="true">CUT / RESET / RETAIN / CUT / RESET / RETAIN /</div>
+      <div class="shell creative-process-grid">
+        <article>
           <span class="step">01 / CUT</span>
           <h3>Remove the drag.</h3>
-          <p>Keep the personality. Lose the parts the viewer has already understood, predicted, or stopped caring about.</p>
+          <p>Slow intros, repetitive sequences, menu navigation and points already understood disappear before decoration starts.</p>
         </article>
-        <article class="process-item" data-reveal>
+        <article>
           <span class="step">02 / RESET</span>
-          <h3>Change the visual rhythm.</h3>
-          <p>Subtitles, sound, memes, reframes and motion are attention resets. They work better when they are not constant.</p>
+          <h3>Change the rhythm.</h3>
+          <p>Subtitles, memes, reframes, sound and motion work as attention resets precisely because they are not constant.</p>
         </article>
-        <article class="process-item" data-reveal>
+        <article>
           <span class="step">03 / SHIP</span>
-          <h3>Move quickly without looking rushed.</h3>
+          <h3>Move quickly. Look deliberate.</h3>
           <p>Clear briefs can reach first draft in roughly 24 hours. DaVinci Resolve and an AI-assisted workflow handle speed; judgment handles the edit.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="contact-band" aria-label="Creative work contact">
-    <div data-reveal>
+  <section class="contact-band creative-contact" aria-label="Creative work contact">
+    <div>
       <span class="kicker">Available / selective work</span>
       <h2>Need something people keep watching?</h2>
       <p>Gaming, YouTube, Shorts, thumbnails and branded social work. Send the footage or the problem; that is usually enough to start.</p>
       <div class="contact-actions">
-        <a class="cta-button" href="https://x.com/sid_flac" target="_blank" rel="noreferrer">Work with me on X ↗</a>
-        <a class="cta-button" href="https://discord.com/users/456027988417314816" target="_blank" rel="noreferrer">Discord ↗</a>
+        <a class="cta-button creative-cta" href="https://x.com/sid_flac" target="_blank" rel="noreferrer">Work with me on X ↗</a>
+        <a class="cta-button creative-cta" href="https://discord.com/users/456027988417314816" target="_blank" rel="noreferrer">Discord ↗</a>
       </div>
     </div>
-    <div data-reveal>
+    <div>
       <span class="kicker">More fragments</span>
       <h2>The archive is larger than this page.</h2>
-      <p>Personal work and ongoing visual experiments also show up on Instagram. I keep this portfolio tighter on purpose.</p>
+      <p>Personal work and ongoing visual experiments also show up on Instagram. The portfolio stays tighter on purpose.</p>
       <div class="contact-actions">
-        <a class="cta-button" href="https://www.instagram.com/sid.flac/" target="_blank" rel="noreferrer">@sid.flac ↗</a>
+        <a class="cta-button creative-cta" href="https://www.instagram.com/sid.flac/" target="_blank" rel="noreferrer">@sid.flac ↗</a>
       </div>
     </div>
   </section>
