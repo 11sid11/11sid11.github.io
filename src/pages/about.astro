@@ -6,7 +6,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
   description="About Siddharth Sahoo: developer, visual creator and builder of software, automations and internet things."
   pageClass="about-page"
 >
-  <header class="page-hero">
+  <header class="page-hero page-hero-v2" data-scroll-progress="viewport">
     <span class="kicker">03 / About</span>
     <h1>One person. Two toolkits.</h1>
     <div class="page-hero-copy">
@@ -15,38 +15,46 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     </div>
   </header>
 
-  <section class="shell" style="padding-bottom:clamp(5rem,10vw,10rem)">
+  <section class="shell about-shell">
     <div class="about-grid">
-      <article class="about-block" data-reveal>
+      <article class="about-block" data-scroll-progress="viewport">
         <span class="kicker">Developer</span>
         <h2>I like products with boundaries.</h2>
         <p>Local-first software, automation, browser tooling, PWAs and systems where the architecture explains what the product refuses to do as clearly as what it does.</p>
       </article>
-      <article class="about-block" data-reveal>
+      <article class="about-block" data-scroll-progress="viewport">
         <span class="kicker">Creative</span>
         <h2>I edit around attention.</h2>
         <p>Gaming and YouTube work taught me to notice where energy dies. That same instinct carries into thumbnails, brand content and visual systems: <strong>make the point readable, then get out of its way.</strong></p>
       </article>
-      <article class="about-block" data-reveal>
+      <article class="about-block" data-scroll-progress="viewport">
         <span class="kicker">Workflow</span>
         <h2>AI is infrastructure now.</h2>
-        <p>Claude and Codex are heavily integrated into how I investigate, build and iterate. They increase range and speed; source control, tests, explicit constraints and human review keep the output accountable.</p>
+        <p>Claude and Codex are integrated into how I investigate, build and iterate. They increase range and speed; source control, tests, explicit constraints and human review keep the output accountable.</p>
       </article>
-      <article class="about-block" data-reveal>
+      <article class="about-block" data-scroll-progress="viewport">
         <span class="kicker">Away from the screen</span>
         <h2>Games, cameras, music, food, places.</h2>
-        <p>Photography is usually the excuse to notice light. Gaming is partly recreation and partly an endless study in interface, pacing and feedback. I also sing, play guitar badly enough to keep learning, cook, and travel when the calendar cooperates.</p>
+        <p>Photography is usually the excuse to notice light. Gaming is partly recreation and partly an endless study in interface, pacing and feedback. I also sing, play guitar, cook, and travel when the calendar cooperates.</p>
       </article>
     </div>
   </section>
 
+  <section class="about-interlude" data-scroll-progress="section" aria-label="Code and visual work">
+    <div class="about-interlude-stage">
+      <span class="about-interlude-word code">CODE</span>
+      <p>The material changes. The instinct is the same: find the signal, remove the friction, make the result easier to understand.</p>
+      <span class="about-interlude-word frame">FRAME</span>
+    </div>
+  </section>
+
   <section class="contact-band" aria-label="Social profiles">
-    <div data-reveal>
+    <div>
       <span class="kicker">Talk</span>
       <h2>Internet coordinates.</h2>
       <p>X and Discord are the most direct ways to reach me. GitHub is where the code is. Instagram is where the visual side leaks out.</p>
     </div>
-    <div data-reveal>
+    <div>
       <span class="kicker">Elsewhere</span>
       <div class="contact-actions">
         <a class="cta-button" href="https://x.com/sid_flac" target="_blank" rel="noreferrer">X / @sid_flac ↗</a>
