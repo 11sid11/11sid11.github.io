@@ -1,61 +1,152 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import ProjectCard from '@/components/ProjectCard.astro';
+import ProductPreview from '@/components/ProductPreview.astro';
 import { projects, smallerProjects } from '@/data/projects';
+
+const liveFallbacks: Record<string, string> = {
+  mockaroo: 'https://11sid11.github.io/Mockaroo/',
+};
+
+const getPrimary = (project: (typeof projects)[number]) =>
+  project.links.find((link) => link.kind === 'live') ?? project.links[0];
+
+const getLive = (project: (typeof projects)[number]) =>
+  project.links.find((link) => link.kind === 'live')?.href ?? liveFallbacks[project.slug] ?? '';
+
+const firstProject = projects[0];
+const firstLive = firstProject ? getLive(firstProject) : '';
 ---
 <BaseLayout
   title="Dev — Siddharth Sahoo"
   description="Software, open-source tools, automations and product work by Siddharth Sahoo."
   pageClass="dev-page"
 >
-  <header class="page-hero">
+  <header class="page-hero page-hero-v2" data-scroll-progress="viewport">
     <span class="kicker">01 / Developer</span>
     <h1>Build the system.</h1>
     <div class="page-hero-copy">
       <div class="micro">LOCAL-FIRST / AUTOMATION / WEB / BROWSER TOOLS / PRODUCT</div>
-      <p>I build software that removes friction: apps that work without an account, automations that live close to the user, and products with enough structure to survive past the demo.</p>
+      <p>I build software that removes friction: products that work close to the user, automations with clear boundaries, and systems intended to survive past the demo.</p>
     </div>
   </header>
 
-  <section class="section">
-    <div class="shell">
-      <div class="section-head" data-reveal>
-        <div><span class="kicker">Featured work</span></div>
-        <div>
-          <h2>Selected builds.</h2>
-          <p class="section-intro">Public source where it makes sense. Product-level showcases where it does not. No private repository cosplay.</p>
+  <section class="dev-reel section" data-dev-reel>
+    <div class="shell dev-reel-layout">
+      <div class="dev-reel-preview-column">
+        <div class="dev-reel-preview" data-scroll-progress="viewport">
+          <div class="live-preview-chrome">
+            <div class="live-preview-toolbar">
+              <span></span><span></span><span></span>
+              <div class="live-preview-address" data-preview-address>{firstLive || 'product / source'}</div>
+              <a
+                class="live-preview-open"
+                data-preview-open
+                href={firstLive || `/dev/${firstProject?.slug ?? ''}/`}
+                target={firstLive ? '_blank' : undefined}
+                rel={firstLive ? 'noreferrer' : undefined}
+                data-live-link
+              >OPEN ↗</a>
+            </div>
+            <div class="preview-stack" data-preview-stack>
+              {projects.map((project, index) => (
+                <div class:list={['preview-stack-card', index === 0 && 'is-active']} data-preview-card={project.slug}>
+                  <ProductPreview slug={project.slug} title={project.title} />
+                </div>
+              ))}
+              <iframe
+                class:list={['live-preview-frame', !firstLive && 'is-hidden']}
+                data-project-frame
+                src={firstLive || 'about:blank'}
+                title={firstProject ? `${firstProject.title} live product preview` : 'Live product preview'}
+                loading="lazy"
+                tabindex="-1"
+                aria-hidden="true"
+              ></iframe>
+              <div class="live-preview-shade" aria-hidden="true"></div>
+            </div>
+          </div>
+          <div class="live-preview-meta">
+            <span data-preview-index>01 / {firstProject?.title ?? ''}</span>
+            <span>LIVE PRODUCT REEL</span>
+          </div>
         </div>
       </div>
-      <div class="project-list">
-        {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
+
+      <div class="dev-reel-list">
+        <div class="dev-reel-intro">
+          <span class="kicker">Featured work</span>
+          <h2>See the thing.<br/>Then read the notes.</h2>
+          <p>For deployed work, the main action goes straight to the product. The portfolio keeps a second path for architecture and context.</p>
+        </div>
+
+        {projects.map((project, index) => {
+          const primary = getPrimary(project);
+          const live = getLive(project);
+          const statusLabel = project.status === 'shipped' ? 'SHIPPED' : project.status === 'active' ? 'ACTIVE' : 'CURRENT BUILD';
+          return (
+            <article
+              class="dev-reel-item"
+              data-reel-item
+              data-project-slug={project.slug}
+              data-project-title={project.title}
+              data-project-live={live}
+              data-project-primary={primary?.href ?? `/dev/${project.slug}/`}
+              data-project-index={String(index + 1).padStart(2, '0')}
+              data-scroll-progress="viewport"
+            >
+              <div class="dev-reel-item-top">
+                <span>{String(index + 1).padStart(2, '0')} / {project.eyebrow}</span>
+                <span class="status-pill">{statusLabel}</span>
+              </div>
+              <h3>
+                <a href={primary?.href ?? `/dev/${project.slug}/`} target={primary ? '_blank' : undefined} rel={primary ? 'noreferrer' : undefined} data-live-link={live ? true : undefined}>
+                  {project.title}
+                </a>
+              </h3>
+              <p>{project.summary}</p>
+              <ul class="tag-row" aria-label={`${project.title} technology stack`}>
+                {project.stack.slice(0, 5).map((item) => <li>{item}</li>)}
+              </ul>
+              {project.note && <div class="project-note">// {project.note}</div>}
+              <div class="dev-reel-actions">
+                {primary && (
+                  <a href={primary.href} target="_blank" rel="noreferrer" data-live-link>
+                    {live ? 'OPEN PRODUCT ↗' : `${primary.label.toUpperCase()} ↗`}
+                  </a>
+                )}
+                <a href={`/dev/${project.slug}/`} data-case-link>CASE NOTES →</a>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section dev-process-section">
     <div class="shell">
-      <div class="section-head" data-reveal>
+      <div class="section-head kinetic-head" data-scroll-progress="viewport">
         <div><span class="kicker">How I work</span></div>
         <div>
           <h2>AI in the loop. Judgment still required.</h2>
-          <p class="section-intro">Claude and Codex are part of the workflow now. I use them for throughput, investigation, iteration and review—not as a substitute for architecture, testing or knowing what the product is supposed to do.</p>
+          <p class="section-intro">Claude and Codex increase throughput. Architecture, tests, boundaries and the boring failure paths keep that speed useful.</p>
         </div>
       </div>
-      <div class="process-grid">
-        <article class="process-item" data-reveal>
+      <div class="process-grid process-grid-v2">
+        <article class="process-item" data-scroll-progress="viewport">
           <span class="step">01 / DEFINE</span>
           <h3>Find the actual boundary.</h3>
-          <p>What is source of truth? What should remain local? What can fail? What should never be silently coupled?</p>
+          <p>Source of truth, privacy, failure, ownership and coupling are product decisions before they are implementation details.</p>
         </article>
-        <article class="process-item" data-reveal>
+        <article class="process-item" data-scroll-progress="viewport">
           <span class="step">02 / BUILD</span>
           <h3>Use tools aggressively.</h3>
-          <p>AI assists implementation and exploration; small modules, typed interfaces, tests and documentation keep the speed from becoming debt.</p>
+          <p>AI assists investigation and implementation; small modules, typed interfaces, tests and documentation keep momentum legible.</p>
         </article>
-        <article class="process-item" data-reveal>
+        <article class="process-item" data-scroll-progress="viewport">
           <span class="step">03 / VERIFY</span>
-          <h3>Make the boring paths real.</h3>
-          <p>Backups, updates, failure states, migration, privacy boundaries and cleanup are product work—not the part after product work.</p>
+          <h3>Make boring paths real.</h3>
+          <p>Backups, updates, migrations, error states and cleanup are not post-launch chores. They are the product surviving contact with reality.</p>
         </article>
       </div>
     </div>
@@ -63,24 +154,107 @@ import { projects, smallerProjects } from '@/data/projects';
 
   <section class="section">
     <div class="shell">
-      <div class="section-head" data-reveal>
+      <div class="section-head kinetic-head" data-scroll-progress="viewport">
         <div><span class="kicker">Smaller / useful</span></div>
         <div>
           <h2>Not every tool needs a manifesto.</h2>
-          <p class="section-intro">Some projects exist because a narrow problem needed a reliable answer.</p>
+          <p class="section-intro">Some things exist because a narrow problem needed a reliable answer.</p>
         </div>
       </div>
       <div class="small-projects">
         {smallerProjects.map((project) => (
-          <a class="small-project" href={project.href} target="_blank" rel="noreferrer" data-reveal>
+          <a class="small-project" href={project.href} target="_blank" rel="noreferrer" data-cursor-text="OPEN ↗">
             <h3>{project.title}</h3>
             <div>
               <p>{project.summary}</p>
-              <span class="text-link">Source ↗</span>
+              <span class="text-link">Open ↗</span>
             </div>
           </a>
         ))}
       </div>
     </div>
   </section>
+
+  <script is:inline>
+    (() => {
+      const root = document.querySelector('[data-dev-reel]');
+      if (!(root instanceof HTMLElement)) return;
+
+      const items = Array.from(root.querySelectorAll('[data-reel-item]')).filter((item) => item instanceof HTMLElement);
+      const cards = Array.from(root.querySelectorAll('[data-preview-card]')).filter((card) => card instanceof HTMLElement);
+      const frame = root.querySelector('[data-project-frame]');
+      const address = root.querySelector('[data-preview-address]');
+      const open = root.querySelector('[data-preview-open]');
+      const index = root.querySelector('[data-preview-index]');
+      if (!items.length) return;
+
+      let activeSlug = '';
+      let requestedUrl = frame instanceof HTMLIFrameElement ? frame.src : '';
+      let ticking = false;
+
+      const activate = (item) => {
+        const slug = item.dataset.projectSlug || '';
+        if (!slug || slug === activeSlug) return;
+        activeSlug = slug;
+
+        const live = item.dataset.projectLive || '';
+        const primary = item.dataset.projectPrimary || `/dev/${slug}/`;
+        const title = item.dataset.projectTitle || slug;
+        const number = item.dataset.projectIndex || '';
+
+        items.forEach((candidate) => candidate.classList.toggle('is-active', candidate === item));
+        cards.forEach((card) => card.classList.toggle('is-active', card.dataset.previewCard === slug));
+
+        if (address instanceof HTMLElement) address.textContent = live || 'source / case notes';
+        if (index instanceof HTMLElement) index.textContent = `${number} / ${title}`;
+        if (open instanceof HTMLAnchorElement) {
+          open.href = primary;
+          open.target = primary.startsWith('http') ? '_blank' : '';
+          open.rel = primary.startsWith('http') ? 'noreferrer' : '';
+          open.textContent = live ? 'OPEN LIVE ↗' : 'OPEN ↗';
+        }
+
+        if (frame instanceof HTMLIFrameElement) {
+          frame.classList.add('is-transitioning');
+          if (live) {
+            frame.classList.remove('is-hidden');
+            if (requestedUrl !== live) {
+              requestedUrl = live;
+              frame.src = live;
+            }
+          } else {
+            frame.classList.add('is-hidden');
+          }
+          window.setTimeout(() => frame.classList.remove('is-transitioning'), 320);
+        }
+      };
+
+      const update = () => {
+        const center = window.innerHeight * 0.52;
+        let closest = items[0];
+        let distance = Infinity;
+        items.forEach((item) => {
+          const rect = item.getBoundingClientRect();
+          const itemCenter = rect.top + rect.height * 0.5;
+          const nextDistance = Math.abs(itemCenter - center);
+          if (nextDistance < distance) {
+            distance = nextDistance;
+            closest = item;
+          }
+        });
+        activate(closest);
+        ticking = false;
+      };
+
+      const requestUpdate = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+      };
+
+      document.addEventListener('sid:scroll-frame', requestUpdate);
+      window.addEventListener('resize', requestUpdate, { passive: true });
+      requestUpdate();
+    })();
+  </script>
 </BaseLayout>
