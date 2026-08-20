@@ -1,0 +1,49 @@
+<div class="cursor-dot" data-cursor aria-hidden="true"><span data-cursor-label></span></div>
+<script is:inline>
+  (() => {
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!finePointer || reducedMotion) return;
+
+    const cursor = document.querySelector('[data-cursor]');
+    const label = document.querySelector('[data-cursor-label]');
+    if (!(cursor instanceof HTMLElement) || !(label instanceof HTMLElement)) return;
+
+    document.documentElement.classList.add('custom-cursor-active');
+    let x = -100;
+    let y = -100;
+    let targetX = x;
+    let targetY = y;
+
+    const render = () => {
+      x += (targetX - x) * 0.24;
+      y += (targetY - y) * 0.24;
+      cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      requestAnimationFrame(render);
+    };
+
+    window.addEventListener('pointermove', (event) => {
+      targetX = event.clientX;
+      targetY = event.clientY;
+      cursor.classList.add('is-visible');
+    }, { passive: true });
+
+    document.addEventListener('pointerover', (event) => {
+      const target = event.target instanceof Element ? event.target.closest('a, button, [data-cursor-text]') : null;
+      const text = target?.getAttribute('data-cursor-text') || (target ? 'OPEN' : '');
+      cursor.classList.toggle('is-active', Boolean(target));
+      label.textContent = text;
+    });
+
+    document.addEventListener('pointerout', (event) => {
+      const next = event.relatedTarget instanceof Element ? event.relatedTarget.closest('a, button, [data-cursor-text]') : null;
+      if (!next) {
+        cursor.classList.remove('is-active');
+        label.textContent = '';
+      }
+    });
+
+    document.addEventListener('mouseleave', () => cursor.classList.remove('is-visible'));
+    render();
+  })();
+</script>

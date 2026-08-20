@@ -1,0 +1,20 @@
+---
+const { pathname } = Astro.url;
+
+const nav = [
+  { href: '/dev/', label: 'DEV' },
+  { href: '/creative/', label: 'CREATIVE' },
+  { href: '/about/', label: 'ABOUT' },
+];
+---
+<header class="site-header" data-header>
+  <a class="brand" href="/" aria-label="Siddharth Sahoo home">
+    <span>SID</span><span class="brand-dot">.</span><span>IS-A</span><span class="brand-dot">.</span><span>DEV</span>
+  </a>
+  <nav class="site-nav" aria-label="Primary navigation">
+    {nav.map((item) => (
+      <a href={item.href} aria-current={pathname.startsWith(item.href) ? 'page' : undefined}>{item.label}</a>
+    ))}
+  </nav>
+  <a class="header-contact" href="https://x.com/sid_flac" target="_blank" rel="noreferrer">@SID_FLAC ↗</a>
+</header>

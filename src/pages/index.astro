@@ -1,0 +1,121 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import WebGLField from '@/components/WebGLField.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import CreativeCard from '@/components/CreativeCard.astro';
+import { projects } from '@/data/projects';
+import { creativeWork } from '@/data/creative';
+
+const featuredDev = projects.filter((project) => project.featured).slice(0, 3);
+const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3);
+---
+<BaseLayout pageClass="home-page">
+  <section class="hero" aria-labelledby="home-title">
+    <WebGLField />
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="hero-topline">
+        <span>Siddharth Sahoo / developer / visual creator</span>
+        <span>DEV ↔ CREATIVE</span>
+      </div>
+
+      <div class="hero-title-wrap">
+        <h1 class="hero-title" id="home-title">I BUILD<br /><span class="outline">THINGS.</span></h1>
+        <div class="artifact-3d" aria-hidden="true">
+          <span>DEV</span>
+          <span>VISUAL</span>
+          <span>SYSTEM</span>
+        </div>
+        <p class="hero-sub">
+          Software when the problem is technical. Visuals when attention is the problem.
+          <strong>Usually some version of both.</strong>
+        </p>
+      </div>
+
+      <div class="hero-portals" aria-label="Choose a portfolio path">
+        <a class="portal portal-dev" href="/dev/" data-cursor-text="DEV">
+          <span class="portal-label">01 / ENGINEERING</span>
+          <strong>DEV</strong>
+          <p>Apps, automations, browser tools, open source and products I keep making because apparently one is never enough.</p>
+          <span class="portal-arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="portal portal-creative" href="/creative/" data-cursor-text="VIEW">
+          <span class="portal-label">02 / VISUAL</span>
+          <strong>CREATIVE</strong>
+          <p>Editing, thumbnails, brand work and experiments designed for screens where attention is expensive.</p>
+          <span class="portal-arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="split-statement" aria-label="What I make">
+    <div class="statement-half dev" data-reveal>
+      <span class="kicker">One side</span>
+      <div>
+        <h2>Build the system.</h2>
+        <p>I like local-first apps, useful automation, browser tooling, privacy-conscious products and software with clear boundaries.</p>
+      </div>
+    </div>
+    <div class="statement-half creative" data-reveal>
+      <span class="kicker">The other side</span>
+      <div>
+        <h2>Hold the attention.</h2>
+        <p>I edit for pace and retention, design thumbnails for feed-speed clarity, and make visual work that does not need a paragraph to wake up.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-head" data-reveal>
+        <div><span class="kicker">Selected / dev</span></div>
+        <div>
+          <h2>Things with code in them.</h2>
+          <p class="section-intro">A small cut of the work. The GitHub account is larger; the portfolio is deliberately not.</p>
+        </div>
+      </div>
+      <div class="project-list">
+        {featuredDev.map((project, index) => <ProjectCard project={project} index={index} />)}
+      </div>
+      <div style="margin-top:2rem"><a class="cta-button" href="/dev/">See the dev side ↗</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="section-head" data-reveal>
+        <div><span class="kicker">Selected / creative</span></div>
+        <div>
+          <h2>Things meant to be seen.</h2>
+          <p class="section-intro">Gaming, YouTube, branded social content and visual experiments. Edited and designed around what the viewer notices first.</p>
+        </div>
+      </div>
+      <div class="creative-grid">
+        {featuredCreative.map((work, index) => <CreativeCard work={work} index={index} />)}
+      </div>
+      <div style="margin-top:3rem"><a class="cta-button" href="/creative/">See the creative side ↗</a></div>
+    </div>
+  </section>
+
+  <section class="contact-band" aria-label="Contact">
+    <div data-reveal>
+      <span class="kicker">Work / collaborate</span>
+      <h2>Have a thing worth making?</h2>
+      <p>For creative work, product ideas, collaborations, or a technical problem that has become irritating enough to automate.</p>
+      <div class="contact-actions">
+        <a class="cta-button" href="https://x.com/sid_flac" target="_blank" rel="noreferrer">Talk on X ↗</a>
+        <a class="cta-button" href="https://discord.com/users/456027988417314816" target="_blank" rel="noreferrer">Discord ↗</a>
+      </div>
+    </div>
+    <div data-reveal>
+      <span class="kicker">No pitch deck required</span>
+      <h2>Show me the problem.</h2>
+      <p>The fastest conversations usually start with the thing itself: the footage, the broken workflow, the ugly process, or the idea you want to test.</p>
+      <div class="contact-actions">
+        <a class="cta-button" href="https://github.com/11sid11" target="_blank" rel="noreferrer">GitHub ↗</a>
+        <a class="cta-button" href="https://www.instagram.com/sid.flac/" target="_blank" rel="noreferrer">Instagram ↗</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

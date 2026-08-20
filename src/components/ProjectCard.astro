@@ -1,0 +1,29 @@
+---
+import type { DevProject } from '@/data/projects';
+
+interface Props {
+  project: DevProject;
+  index?: number;
+}
+
+const { project, index = 0 } = Astro.props;
+const statusLabel = project.status === 'shipped' ? 'SHIPPED' : project.status === 'active' ? 'ACTIVE' : 'CURRENT BUILD';
+---
+<article class:list={['project-card', `tone-${project.tone}`]} data-reveal>
+  <a class="project-card-link" href={`/dev/${project.slug}/`} aria-label={`Read ${project.title} case study`}>
+    <div class="project-index">{String(index + 1).padStart(2, '0')}</div>
+    <div class="project-card-body">
+      <div class="project-card-topline">
+        <span>{project.eyebrow}</span>
+        <span class="status-pill">{statusLabel}</span>
+      </div>
+      <h3>{project.title}</h3>
+      <p>{project.summary}</p>
+      <ul class="tag-row" aria-label="Technology stack">
+        {project.stack.slice(0, 4).map((item) => <li>{item}</li>)}
+      </ul>
+      {project.note && <div class="project-note">// {project.note}</div>}
+    </div>
+    <span class="project-arrow" aria-hidden="true">↗</span>
+  </a>
+</article>
