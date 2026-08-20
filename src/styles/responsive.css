@@ -1,0 +1,62 @@
+@media (max-width: 900px) {
+  :root { --header: 62px; }
+  .site-header { grid-template-columns: 1fr auto; }
+  .site-nav { order: 3; grid-column: 1 / -1; width: 100%; padding: .8rem 0; border-top: 1px solid var(--line); }
+  .site-header { padding-top: .85rem; }
+  .header-contact { align-self: start; }
+  .hero { min-height: auto; }
+  .hero-inner { min-height: calc(100svh - 108px); }
+  .hero-title { font-size: clamp(4.6rem, 20vw, 9rem); }
+  .artifact-3d { display: none; }
+  .section-head,
+  .page-hero-copy,
+  .case-body,
+  .footer-main { grid-template-columns: 1fr; }
+  .section-head { gap: 1.5rem; }
+  .page-hero-copy { gap: 1rem; }
+  .project-card-link { grid-template-columns: 2.3rem minmax(0,1fr) auto; }
+  .creative-card,
+  .creative-card:nth-child(3n + 1),
+  .creative-card:nth-child(3n + 2) { grid-column: span 12; padding-top: 0; }
+  .process-item { grid-column: span 12; border-right: 0; }
+  .small-projects,
+  .contact-band { grid-template-columns: 1fr; }
+  .contact-band > div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .about-block { grid-column: span 12; border-right: 0; }
+  .case-sidebar { position: static; }
+}
+
+@media (max-width: 640px) {
+  .site-header { position: relative; }
+  .hero-topline span:last-child { display: none; }
+  .hero-inner { min-height: calc(100svh - 108px); }
+  .hero-title { font-size: clamp(4rem, 23vw, 7rem); }
+  .hero-sub { margin-left: 0; }
+  .hero-portals,
+  .split-statement { grid-template-columns: 1fr; }
+  .portal + .portal,
+  .statement-half + .statement-half { border-left: 0; border-top: 1px solid var(--line-strong); }
+  .portal { min-height: 9rem; }
+  .statement-half { min-height: 40vh; }
+  .project-card-link { grid-template-columns: 1fr auto; }
+  .project-index { display: none; }
+  .project-card-topline { align-items: flex-start; flex-direction: column; }
+  .project-card h3 { font-size: clamp(2.7rem, 16vw, 5rem); }
+  .page-hero h1,
+  .case-title,
+  .creative-case-title { font-size: clamp(4rem, 21vw, 7.5rem); }
+  .media-stack figure:nth-child(even) { width: 100%; }
+  .footer-meta { flex-direction: column; }
+  .cursor-dot { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-reveal] { opacity: 1; transform: none; }
+  .webgl-field { display: none; }
+}

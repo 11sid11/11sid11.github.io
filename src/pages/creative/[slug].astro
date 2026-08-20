@@ -1,0 +1,60 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { creativeWork, type CreativeWork } from '@/data/creative';
+
+export function getStaticPaths() {
+  return creativeWork.map((work) => ({ params: { slug: work.slug }, props: { work } }));
+}
+
+interface Props { work: CreativeWork }
+const { work } = Astro.props;
+---
+<BaseLayout
+  title={`${work.title} — Siddharth Sahoo`}
+  description={work.summary}
+  pageClass="creative-page creative-case"
+>
+  <header class="creative-case-hero">
+    <a class="back-link" href="/creative/">← CREATIVE / INDEX</a>
+    <h1 class="creative-case-title">{work.title}</h1>
+    <p class="case-lede">{work.summary}</p>
+    <div class="case-meta" aria-label="Creative services">
+      {work.services.map((item) => <span>{item}</span>)}
+    </div>
+  </header>
+
+  {work.media.length > 0 ? (
+    <div class="media-stack">
+      {work.media.map((media, index) => (
+        <figure data-reveal>
+          <img src={media.src} alt={media.alt} loading={index === 0 ? 'eager' : 'lazy'} width="1028" height="580" />
+          <figcaption>FRAME {String(index + 1).padStart(2, '0')} / SELECTED THUMBNAIL STUDY</figcaption>
+        </figure>
+      ))}
+    </div>
+  ) : (
+    <div class="type-poster" aria-hidden="true" data-reveal>
+      <strong>{work.category === 'Brand Content' ? 'PACE / MUSIC / LAUNCH' : work.slug === 'retention-editing' ? 'CUT / RESET / RETAIN' : 'MAKE / TEST / REPEAT'}</strong>
+    </div>
+  )}
+
+  <section class="case-body">
+    <aside class="case-sidebar" data-reveal>
+      <span class="status-pill">{work.category} / {work.year}</span>
+      {work.note && <p>// {work.note}</p>}
+    </aside>
+    <div class="case-content" data-reveal>
+      <h2>The work</h2>
+      <p>{work.description}</p>
+      <h2>What I handled</h2>
+      <ul class="case-highlights">
+        {work.services.map((service) => <li>{service}</li>)}
+      </ul>
+      {work.links && (
+        <div class="case-links">
+          {work.links.map((link) => <a class="cta-button" href={link.href} target="_blank" rel="noreferrer">{link.label} ↗</a>)}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

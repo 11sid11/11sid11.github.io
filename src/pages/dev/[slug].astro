@@ -1,0 +1,50 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { projects, type DevProject } from '@/data/projects';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+interface Props { project: DevProject }
+const { project } = Astro.props;
+const statusLabel = project.status === 'shipped' ? 'SHIPPED' : project.status === 'active' ? 'ACTIVE' : 'CURRENT BUILD';
+---
+<BaseLayout
+  title={`${project.title} — Siddharth Sahoo`}
+  description={project.summary}
+  pageClass="dev-page"
+>
+  <header class="case-hero">
+    <a class="back-link" href="/dev/">← DEV / INDEX</a>
+    <h1 class="case-title">{project.title}</h1>
+    <p class="case-lede">{project.summary}</p>
+    <div class="case-meta" aria-label="Project stack">
+      {project.stack.map((item) => <span>{item}</span>)}
+    </div>
+  </header>
+
+  <section class="case-body">
+    <aside class="case-sidebar" data-reveal>
+      <span class="status-pill">{statusLabel} / {project.year}</span>
+      {project.note && <p>// {project.note}</p>}
+      {project.visibility === 'showcase' && <p>// Source stays private for now.</p>}
+    </aside>
+
+    <div class="case-content" data-reveal>
+      <h2>What it is</h2>
+      <p>{project.description}</p>
+
+      <h2>What matters</h2>
+      <ul class="case-highlights">
+        {project.highlights.map((highlight) => <li>{highlight}</li>)}
+      </ul>
+
+      <div class="case-links">
+        {project.links.map((link) => (
+          <a class="cta-button" href={link.href} target="_blank" rel="noreferrer">{link.label} ↗</a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

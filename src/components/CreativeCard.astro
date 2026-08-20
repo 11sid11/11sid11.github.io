@@ -1,0 +1,31 @@
+---
+import type { CreativeWork } from '@/data/creative';
+
+interface Props {
+  work: CreativeWork;
+  index?: number;
+}
+
+const { work, index = 0 } = Astro.props;
+const cover = work.media[0];
+---
+<article class:list={['creative-card', !cover && 'creative-card-type']} data-reveal>
+  <a href={`/creative/${work.slug}/`} class="creative-card-link" aria-label={`Open ${work.title}`}>
+    {cover ? (
+      <div class="creative-card-media">
+        <img src={cover.src} alt={cover.alt} loading="lazy" width="1028" height="580" />
+      </div>
+    ) : (
+      <div class="creative-type-art" aria-hidden="true">
+        <span>{String(index + 1).padStart(2, '0')}</span>
+        <strong>{work.category === 'Brand Content' ? 'BRAND / MOTION' : work.category === 'Visual Experiments' ? 'MAKE / TEST / REPEAT' : 'CUT / RESET / RETAIN'}</strong>
+      </div>
+    )}
+    <div class="creative-card-copy">
+      <div class="creative-card-meta"><span>{work.category}</span><span>{work.year}</span></div>
+      <h3>{work.title}</h3>
+      <p>{work.summary}</p>
+      <span class="text-link">View work ↗</span>
+    </div>
+  </a>
+</article>
