@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import WebGLField from '@/components/WebGLField.astro';
+import WebGLArtifact from '@/components/WebGLArtifact.astro';
 import ProjectCard from '@/components/ProjectCard.astro';
 import CreativeCard from '@/components/CreativeCard.astro';
 import { projects } from '@/data/projects';
@@ -10,108 +10,113 @@ const featuredDev = projects.filter((project) => project.featured).slice(0, 3);
 const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3);
 ---
 <BaseLayout pageClass="home-page">
-  <section class="hero" aria-labelledby="home-title">
-    <WebGLField />
-    <div class="hero-grid" aria-hidden="true"></div>
-    <div class="hero-inner">
-      <div class="hero-topline">
-        <span>Siddharth Sahoo / developer / visual creator</span>
-        <span>DEV ↔ CREATIVE</span>
-      </div>
+  <section class="hero-v2" aria-labelledby="home-title" data-scroll-progress="section">
+    <div class="hero-v2-stage">
+      <div class="hero-v2-grid" aria-hidden="true"></div>
+      <div class="hero-v2-signal" aria-hidden="true"></div>
 
-      <div class="hero-title-wrap">
-        <h1 class="hero-title" id="home-title">I BUILD<br /><span class="outline">THINGS.</span></h1>
-        <div class="artifact-3d" aria-hidden="true">
-          <span>DEV</span>
-          <span>VISUAL</span>
-          <span>SYSTEM</span>
+      <div class="hero-v2-inner">
+        <div class="hero-v2-topline">
+          <span>Siddharth Sahoo / developer + visual creator</span>
+          <span>Scroll to separate the system</span>
         </div>
-        <p class="hero-sub">
-          Software when the problem is technical. Visuals when attention is the problem.
-          <strong>Usually some version of both.</strong>
-        </p>
-      </div>
 
-      <div class="hero-portals" aria-label="Choose a portfolio path">
-        <a class="portal portal-dev" href="/dev/" data-cursor-text="DEV">
-          <span class="portal-label">01 / ENGINEERING</span>
-          <strong>DEV</strong>
-          <p>Apps, automations, browser tools, open source and products I keep making because apparently one is never enough.</p>
-          <span class="portal-arrow" aria-hidden="true">↗</span>
-        </a>
-        <a class="portal portal-creative" href="/creative/" data-cursor-text="VIEW">
-          <span class="portal-label">02 / VISUAL</span>
-          <strong>CREATIVE</strong>
-          <p>Editing, thumbnails, brand work and experiments designed for screens where attention is expensive.</p>
-          <span class="portal-arrow" aria-hidden="true">↗</span>
-        </a>
+        <div class="hero-v2-main">
+          <div class="hero-v2-copy">
+            <h1 class="hero-v2-title" id="home-title">
+              <span class="hero-v2-solid">I BUILD</span>
+              <span class="hero-v2-fill" data-text="THINGS.">THINGS.</span>
+            </h1>
+            <p class="hero-v2-sub">
+              Software when the problem is technical. Visuals when attention is the problem.
+              <strong>Usually some version of both.</strong>
+            </p>
+          </div>
+
+          <div class="hero-v2-artifact-wrap">
+            <WebGLArtifact />
+            <div class="artifact-caption">
+              <span>ONE PRACTICE</span>
+              <span>TWO OUTPUTS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-v2-portals" aria-label="Choose a portfolio path">
+          <a class="portal-v2 portal-v2-dev" href="/dev/" data-cursor-text="DEV →">
+            <span class="portal-v2-label">01 / ENGINEERING</span>
+            <strong>DEV</strong>
+            <span class="portal-v2-arrow" aria-hidden="true">↗</span>
+            <p>Products, automations, browser tools and open-source work.</p>
+          </a>
+          <a class="portal-v2 portal-v2-creative" href="/creative/" data-cursor-text="CREATIVE →">
+            <span class="portal-v2-label">02 / VISUAL</span>
+            <strong>CREATIVE</strong>
+            <span class="portal-v2-arrow" aria-hidden="true">↗</span>
+            <p>Editing, thumbnails, brand work and visual experiments.</p>
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="split-statement" aria-label="What I make">
-    <div class="statement-half dev" data-reveal>
-      <span class="kicker">One side</span>
-      <div>
-        <h2>Build the system.</h2>
-        <p>I like local-first apps, useful automation, browser tooling, privacy-conscious products and software with clear boundaries.</p>
+  <section class="duality" data-scroll-progress="section" aria-label="Two sides of the work">
+    <div class="duality-stage">
+      <div class="duality-word duality-word-left">BUILD</div>
+      <div class="duality-center">
+        <span class="kicker">Same instinct, different material.</span>
+        <p>I like solving the actual problem. Sometimes that means architecture and code. Sometimes it means pacing, hierarchy and the frame.</p>
       </div>
-    </div>
-    <div class="statement-half creative" data-reveal>
-      <span class="kicker">The other side</span>
-      <div>
-        <h2>Hold the attention.</h2>
-        <p>I edit for pace and retention, design thumbnails for feed-speed clarity, and make visual work that does not need a paragraph to wake up.</p>
-      </div>
+      <div class="duality-word duality-word-right">HOLD</div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section selected-dev-section">
     <div class="shell">
-      <div class="section-head" data-reveal>
+      <div class="section-head kinetic-head" data-scroll-progress="viewport">
         <div><span class="kicker">Selected / dev</span></div>
         <div>
           <h2>Things with code in them.</h2>
-          <p class="section-intro">A small cut of the work. The GitHub account is larger; the portfolio is deliberately not.</p>
+          <p class="section-intro">The fastest way to understand a project is to see the thing. Product links take you there; case notes stay optional.</p>
         </div>
       </div>
       <div class="project-list">
         {featuredDev.map((project, index) => <ProjectCard project={project} index={index} />)}
       </div>
-      <div style="margin-top:2rem"><a class="cta-button" href="/dev/">See the dev side ↗</a></div>
+      <div class="section-tail"><a class="cta-button" href="/dev/" data-cursor-text="DEV →">See the dev side ↗</a></div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section selected-creative-section">
     <div class="shell">
-      <div class="section-head" data-reveal>
+      <div class="section-head kinetic-head" data-scroll-progress="viewport">
         <div><span class="kicker">Selected / creative</span></div>
         <div>
           <h2>Things meant to be seen.</h2>
-          <p class="section-intro">Gaming, YouTube, branded social content and visual experiments. Edited and designed around what the viewer notices first.</p>
+          <p class="section-intro">The work gets the space. Fewer cards, larger frames, and enough motion to reveal decisions instead of distracting from them.</p>
         </div>
       </div>
       <div class="creative-grid">
         {featuredCreative.map((work, index) => <CreativeCard work={work} index={index} />)}
       </div>
-      <div style="margin-top:3rem"><a class="cta-button" href="/creative/">See the creative side ↗</a></div>
+      <div class="section-tail"><a class="cta-button creative-cta" href="/creative/" data-cursor-text="VIEW →">See the creative side ↗</a></div>
     </div>
   </section>
 
   <section class="contact-band" aria-label="Contact">
-    <div data-reveal>
+    <div>
       <span class="kicker">Work / collaborate</span>
       <h2>Have a thing worth making?</h2>
-      <p>For creative work, product ideas, collaborations, or a technical problem that has become irritating enough to automate.</p>
+      <p>Creative work, product ideas, collaborations, or a technical problem that has become irritating enough to automate.</p>
       <div class="contact-actions">
         <a class="cta-button" href="https://x.com/sid_flac" target="_blank" rel="noreferrer">Talk on X ↗</a>
         <a class="cta-button" href="https://discord.com/users/456027988417314816" target="_blank" rel="noreferrer">Discord ↗</a>
       </div>
     </div>
-    <div data-reveal>
-      <span class="kicker">No pitch deck required</span>
-      <h2>Show me the problem.</h2>
-      <p>The fastest conversations usually start with the thing itself: the footage, the broken workflow, the ugly process, or the idea you want to test.</p>
+    <div>
+      <span class="kicker">Start with the thing itself</span>
+      <h2>No pitch deck required.</h2>
+      <p>Send the footage, the broken workflow, the rough prototype, or the idea. Context beats ceremony.</p>
       <div class="contact-actions">
         <a class="cta-button" href="https://github.com/11sid11" target="_blank" rel="noreferrer">GitHub ↗</a>
         <a class="cta-button" href="https://www.instagram.com/sid.flac/" target="_blank" rel="noreferrer">Instagram ↗</a>
