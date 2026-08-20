@@ -1,4 +1,5 @@
 ---
+import ProductPreview from '@/components/ProductPreview.astro';
 import type { DevProject } from '@/data/projects';
 
 interface Props {
@@ -8,9 +9,11 @@ interface Props {
 
 const { project, index = 0 } = Astro.props;
 const statusLabel = project.status === 'shipped' ? 'SHIPPED' : project.status === 'active' ? 'ACTIVE' : 'CURRENT BUILD';
+const primary = project.links.find((link) => link.kind === 'live') ?? project.links[0];
 ---
-<article class:list={['project-card', `tone-${project.tone}`]} data-reveal>
-  <a class="project-card-link" href={`/dev/${project.slug}/`} aria-label={`Read ${project.title} case study`}>
+<article class:list={['project-card', `tone-${project.tone}`]} data-scroll-progress="viewport">
+  <div class="project-card-surface" aria-hidden="true"></div>
+  <div class="project-card-grid">
     <div class="project-index">{String(index + 1).padStart(2, '0')}</div>
     <div class="project-card-body">
       <div class="project-card-topline">
@@ -23,7 +26,26 @@ const statusLabel = project.status === 'shipped' ? 'SHIPPED' : project.status ==
         {project.stack.slice(0, 4).map((item) => <li>{item}</li>)}
       </ul>
       {project.note && <div class="project-note">// {project.note}</div>}
+      <div class="project-card-actions">
+        {primary && (
+          <a href={primary.href} target="_blank" rel="noreferrer" data-live-link>
+            {primary.kind === 'live' ? 'OPEN PRODUCT ↗' : primary.label.toUpperCase() + ' ↗'}
+          </a>
+        )}
+        <a href={`/dev/${project.slug}/`} data-case-link>CASE NOTES →</a>
+      </div>
     </div>
-    <span class="project-arrow" aria-hidden="true">↗</span>
-  </a>
+    <a
+      class="project-card-preview"
+      href={primary?.href ?? `/dev/${project.slug}/`}
+      target={primary ? '_blank' : undefined}
+      rel={primary ? 'noreferrer' : undefined}
+      aria-label={primary ? `Open ${project.title}` : `Read ${project.title} case notes`}
+      data-live-link={primary?.kind === 'live' ? true : undefined}
+      data-cursor-text={primary?.kind === 'live' ? 'LIVE ↗' : 'OPEN'}
+    >
+      <ProductPreview slug={project.slug} title={project.title} compact />
+      <span class="project-preview-arrow" aria-hidden="true">↗</span>
+    </a>
+  </div>
 </article>
