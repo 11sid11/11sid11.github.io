@@ -24,9 +24,9 @@ export const creativeWork: CreativeWork[] = [
       'These thumbnail studies use aggressive focal hierarchy, subject separation, lighting, typography and controlled visual noise. The goal is not “more effects”; it is making the promise of the video understandable at feed speed.',
     services: ['Thumbnail design', 'Compositing', 'Typography', 'Visual hierarchy'],
     media: [
-      { src: '/work/creative/finals-archer.webp', alt: 'Gaming thumbnail design with a central archer character and bold The Finals typography' },
-      { src: '/work/creative/finals-clutch.webp', alt: 'Gaming thumbnail design for The Finals with red action composition and Insane Clutch headline' },
-      { src: '/work/creative/deadlock-fun.webp', alt: 'Gaming thumbnail design for Deadlock with action gameplay composition and bold yellow title' },
+      { src: '/work/creative/finals-archer.avif', alt: 'Gaming thumbnail design with a central archer character and bold The Finals typography' },
+      { src: '/work/creative/finals-clutch.avif', alt: 'Gaming thumbnail design for The Finals with red action composition and Insane Clutch headline' },
+      { src: '/work/creative/deadlock-fun.avif', alt: 'Gaming thumbnail design for Deadlock with action gameplay composition and bold yellow title' },
     ],
   },
   {
