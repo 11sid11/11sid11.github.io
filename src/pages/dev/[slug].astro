@@ -38,19 +38,19 @@ const statusLabel = project.status === 'shipped' ? 'SHIPPED' : project.status ==
 
     <div class="case-content" data-reveal>
       <span class="case-section-label">01 / THE PROBLEM</span>
-      <h2>What was getting in the way</h2>
+      <h2>Problem</h2>
       <p>{project.problem}</p>
 
       <span class="case-section-label">02 / THE SOLUTION</span>
-      <h2>What I built</h2>
+      <h2>Solution</h2>
       <p>{project.solution}</p>
 
       <span class="case-section-label">03 / THE RESULT</span>
-      <h2>Why it matters</h2>
+      <h2>Outcome</h2>
       <p>{project.outcome}</p>
 
       <span class="case-section-label">04 / UNDER THE HOOD</span>
-      <h2>The decisions that carry it</h2>
+      <h2>Key technical decisions</h2>
       <ul class="case-highlights">
         {project.highlights.map((highlight) => <li>{highlight}</li>)}
       </ul>

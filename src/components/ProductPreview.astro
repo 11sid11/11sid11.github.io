@@ -28,17 +28,17 @@ const { slug, title, preview } = project;
       />
     ) : (
       <div class="private-preview">
-        <span class="private-preview-status">PRIVATE LAB / COMING SOON</span>
+        <span class="private-preview-status">IN PROGRESS</span>
         <strong>{title}</strong>
-        <p>Diet, training and everyday decision support—being tested before it is explained.</p>
+        <p>A private prototype for diet, training and everyday decisions.</p>
         <div class="private-preview-track"><i></i></div>
-        <span class="private-preview-note">HIGH-LEVEL VIEW ONLY</span>
+        <span class="private-preview-note">DETAILS LIMITED</span>
       </div>
     )}
   </div>
 
   <div class="preview-caption">
     <span>{title}</span>
-    <span>{preview.src ? 'AUTHENTIC CAPTURE' : 'PRIVATE PREVIEW'}</span>
+    <span>{preview.src ? 'PROJECT SCREENSHOT' : 'PRIVATE PREVIEW'}</span>
   </div>
 </div>

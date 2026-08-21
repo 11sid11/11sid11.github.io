@@ -164,7 +164,6 @@
   font: 700 .58rem/1 ui-monospace, monospace;
   letter-spacing: .12em;
 }
-.signal-status { color:var(--acid); }
 .signal-board {
   position:relative;
   z-index:2;
@@ -184,33 +183,18 @@
   transition:border-color 220ms ease,transform 260ms var(--ease-out),background 220ms ease;
 }
 .signal-node > span { color:var(--muted-2);font:700 .55rem/1 ui-monospace,monospace;letter-spacing:.12em; }
-.signal-state-stack { position:relative;min-height:2.7rem; }
 .signal-state {
-  position:absolute;
-  inset:auto 0 0;
-  font-size:clamp(1.15rem,2.2vw,2rem);
-  line-height:.92;
+  max-width:10ch;
+  font-size:clamp(1rem,2vw,1.75rem);
+  line-height:.95;
   letter-spacing:-.05em;
-  opacity:0;
-  transform:translateY(.65rem);
-  transition:opacity 180ms ease,transform 260ms var(--ease-out),color 180ms ease;
 }
-.signal-state-default { opacity:1;transform:none; }
 .signal-route { position:relative;height:1px;background:var(--line-strong); }
 .signal-route i { position:absolute;top:50%;width:5px;height:5px;margin-top:-2px;border-radius:50%;background:var(--paper);animation:signal-pulse 2.4s linear infinite; }
 .signal-route i:nth-child(2){animation-delay:-.8s}.signal-route i:nth-child(3){animation-delay:-1.6s}
 .signal-route span { position:absolute;right:-.15rem;top:50%;transform:translateY(-53%);padding-left:.25rem;background:var(--bg);color:var(--paper); }
 .signal-output { transform:translateY(calc(var(--scroll-progress) * -.6rem)); }
 .signal-translator-footer { color:var(--muted-2); }
-[data-hero-system][data-signal-state] .signal-state-default { opacity:0;transform:translateY(-.65rem); }
-[data-hero-system][data-signal-state="dev"] .signal-state-dev,
-[data-hero-system][data-signal-state="creative"] .signal-state-creative { opacity:1;transform:none; }
-[data-hero-system][data-signal-state="dev"] .signal-translator { border-color:rgba(201,245,54,.58); }
-[data-hero-system][data-signal-state="dev"] .signal-node { border-color:rgba(201,245,54,.38); }
-[data-hero-system][data-signal-state="creative"] .signal-translator { border-color:rgba(255,90,54,.62); }
-[data-hero-system][data-signal-state="creative"] .signal-translator::before { background:var(--ember);opacity:.14; }
-[data-hero-system][data-signal-state="creative"] .signal-status,
-[data-hero-system][data-signal-state="creative"] .signal-state-creative { color:var(--ember); }
 @keyframes signal-pulse { from{left:0;opacity:0} 18%{opacity:1} 82%{opacity:1} to{left:100%;opacity:0} }
 
 .hero-v2-portals {

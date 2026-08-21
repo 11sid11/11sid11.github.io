@@ -202,26 +202,25 @@ export const projects: DevProject[] = [
     status: 'showcase',
     visibility: 'showcase',
     featured: true,
-    summary: 'A private lab for making diet, training and everyday fitness decisions less noisy. Still cooking—deliberately.',
+    summary: 'A private prototype for practical diet and training decisions.',
     problem:
-      'Fitness advice is abundant, contradictory and often detached from the decisions people actually make during a normal week. Turning more information into another feed would only add to the noise.',
+      'Fitness advice is abundant, contradictory and often detached from the decisions people make during a normal week.',
     solution:
-      'I am testing a private product system around diet, workouts and practical decision support. The public view stays high-level while the useful interaction model, content structure and boundaries are still being proven.',
+      'I am testing a private prototype around diet, workouts and practical decision support. The interaction model and content structure are still being evaluated, so public details remain limited.',
     outcome:
-      'For now, the honest result is a focused lab rather than a premature launch. The direction is clear, the implementation remains private, and only the parts that survive testing will become public.',
+      'There is no public launch or claimed outcome yet. The project remains private while the core workflow is tested.',
     highlights: [
-      'Diet and training guidance organized around everyday decisions',
-      'Product and content systems developed together',
-      'Private implementation with selected public-facing experiments',
-      'Designed to evolve without launching every prototype',
+      'Private prototype around diet and training decisions',
+      'Interaction and content structure still under test',
+      'No public launch or outcome claimed yet',
     ],
-    stack: ['Product design', 'Web apps', 'Content systems', 'AI-assisted workflow'],
+    stack: ['Product design', 'Web apps', 'Content systems'],
     links: [{ label: 'Visual side', href: 'https://www.instagram.com/leanlogiclab/', kind: 'external' }],
     preview: {
       alt: 'LeanLogicLab private product coming-soon preview',
       address: 'private-lab.local',
     },
-    note: 'Coming soon. The useful parts are still being tested.',
+    note: 'Private prototype; public details are limited.',
     tone: 'orange',
   },
 ];

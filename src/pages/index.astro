@@ -10,7 +10,7 @@ const featuredDev = projects.filter((project) => project.featured).slice(0, 3);
 const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3);
 ---
 <BaseLayout pageClass="home-page">
-  <section class="hero-v2" aria-labelledby="home-title" data-scroll-progress="section" data-hero-system>
+  <section class="hero-v2" aria-labelledby="home-title" data-scroll-progress="section">
     <div class="hero-v2-stage">
       <div class="hero-v2-grid" aria-hidden="true"></div>
       <div class="hero-v2-signal" aria-hidden="true"></div>
@@ -18,7 +18,7 @@ const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3
       <div class="hero-v2-inner">
         <div class="hero-v2-topline">
           <span>Siddharth Sahoo / developer + visual creator</span>
-          <span>Stay a minute. The split becomes obvious.</span>
+          <span>Software on one side. Visual work on the other.</span>
         </div>
 
         <div class="hero-v2-main">
@@ -28,8 +28,8 @@ const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3
               <span class="hero-v2-fill" data-text="THINGS." aria-hidden="true">THINGS.</span>
             </h1>
             <p class="hero-v2-sub">
-              I build useful things. Some run in a browser; some have to stop a thumb mid-scroll.
-              <strong>The job is still making the answer obvious.</strong>
+              I build software that removes recurring friction and visual work that earns attention.
+              <strong>Different outputs, same standard: make the result clear and useful.</strong>
             </p>
           </div>
 
@@ -39,17 +39,17 @@ const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3
         </div>
 
         <div class="hero-v2-portals" aria-label="Choose a portfolio path">
-          <a class="portal-v2 portal-v2-dev" href="/dev/" data-cursor-text="DEV →" data-signal-mode="dev">
+          <a class="portal-v2 portal-v2-dev" href="/dev/" data-cursor-text="DEV →">
             <span class="portal-v2-label">01 / ENGINEERING</span>
             <strong>DEV</strong>
             <span class="portal-v2-arrow" aria-hidden="true">↗</span>
-            <p>When the friction needs a system, this is where I solve it.</p>
+            <p>Products, automations, browser tools, and open-source work.</p>
           </a>
-          <a class="portal-v2 portal-v2-creative" href="/creative/" data-cursor-text="CREATIVE →" data-signal-mode="creative">
+          <a class="portal-v2 portal-v2-creative" href="/creative/" data-cursor-text="CREATIVE →">
             <span class="portal-v2-label">02 / VISUAL</span>
             <strong>CREATIVE</strong>
             <span class="portal-v2-arrow" aria-hidden="true">↗</span>
-            <p>When the idea needs attention, this is where I shape the signal.</p>
+            <p>Editing, thumbnails, brand work, and visual experiments.</p>
           </a>
         </div>
       </div>
@@ -60,8 +60,8 @@ const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3
     <div class="duality-stage">
       <div class="duality-word duality-word-left">BUILD</div>
       <div class="duality-center">
-        <span class="kicker">Same instinct, different material.</span>
-        <p>I start with the thing that is not working. Architecture, pacing and hierarchy are just different materials for fixing it.</p>
+        <span class="kicker">Two kinds of work.</span>
+        <p>In software, I remove steps and uncertainty. In visual work, I decide what deserves attention first.</p>
       </div>
       <div class="duality-word duality-word-right">FRAME</div>
     </div>
@@ -123,29 +123,9 @@ const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3
 
 <script is:inline>
   (() => {
-    const hero = document.querySelector('[data-hero-system]');
-    if (!(hero instanceof HTMLElement)) return;
-
-    const translator = hero.querySelector('[data-signal-translator]');
-    const triggers = hero.querySelectorAll('[data-signal-mode]');
+    const translator = document.querySelector('[data-signal-translator]');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const finePointer = window.matchMedia('(pointer: fine)').matches;
-
-    const setState = (state = '') => {
-      if (state) hero.dataset.signalState = state;
-      else delete hero.dataset.signalState;
-    };
-
-    triggers.forEach((trigger) => {
-      if (!(trigger instanceof HTMLElement)) return;
-      const state = trigger.dataset.signalMode ?? '';
-      trigger.addEventListener('pointerenter', () => setState(state));
-      trigger.addEventListener('pointerleave', () => {
-        if (!trigger.matches(':focus-visible')) setState();
-      });
-      trigger.addEventListener('focus', () => setState(state));
-      trigger.addEventListener('blur', () => setState());
-    });
 
     if (!(translator instanceof HTMLElement) || reducedMotion || !finePointer) return;
     translator.addEventListener('pointermove', (event) => {

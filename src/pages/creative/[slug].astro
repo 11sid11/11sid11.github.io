@@ -45,19 +45,19 @@ const { work } = Astro.props;
     </aside>
     <div class="case-content" data-reveal>
       <span class="case-section-label">01 / THE PROBLEM</span>
-      <h2>What had to read</h2>
+      <h2>Challenge</h2>
       <p>{work.problem}</p>
 
       <span class="case-section-label">02 / THE APPROACH</span>
-      <h2>How I shaped it</h2>
+      <h2>Approach</h2>
       <p>{work.approach}</p>
 
       <span class="case-section-label">03 / THE RESULT</span>
-      <h2>What the frame does</h2>
+      <h2>Result</h2>
       <p>{work.result}</p>
 
       <span class="case-section-label">04 / THE WORK</span>
-      <h2>What I handled</h2>
+      <h2>Services</h2>
       <ul class="case-highlights">
         {work.services.map((service) => <li>{service}</li>)}
       </ul>

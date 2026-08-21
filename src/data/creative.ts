@@ -25,9 +25,9 @@ export const creativeWork: CreativeWork[] = [
     problem:
       'A gaming thumbnail gets one small, crowded glance in a fast feed. If the subject, emotion and promise compete for attention, the viewer moves on before any of them lands.',
     approach:
-      'I build one dominant read first, then use separation, lighting, typography and controlled visual noise to support it. Effects stay only when they help the subject survive at actual thumbnail size.',
+      'I build one dominant read first, then use separation, lighting, typography and supporting detail around it. Effects stay only when they help the subject survive at actual thumbnail size.',
     result:
-      'Each composition communicates its idea immediately: high stakes, a surprising character moment, or chaotic fun. The energy is loud; the hierarchy underneath it is disciplined.',
+      'Each thumbnail uses one dominant subject or headline, with lighting and contrast supporting that read at feed size. The visual energy changes from image to image; the hierarchy stays deliberate.',
     services: ['Thumbnail design', 'Compositing', 'Typography', 'Visual hierarchy'],
     media: [
       { src: '/work/creative/finals-archer.webp', alt: 'Gaming thumbnail with a central archer character and bold The Finals typography' },
@@ -47,7 +47,7 @@ export const creativeWork: CreativeWork[] = [
     approach:
       'I find where the viewer has already understood the point, then cut or reset the rhythm. Subtitles, sound, zooms and memes are used as pacing tools—not a layer of decoration over every second.',
     result:
-      'The finished edit moves with intent while preserving personality. Quieter moments still exist; they simply arrive because the story needs them rather than because the timeline was left untouched.',
+      'The edit removes repeated beats and uses subtitles, reframes, sound and memes only where the pacing needs a reset. Quieter moments stay when they support the creator or the story.',
     services: ['Long-form YouTube', 'Gaming edits', 'Shorts', 'Pacing', 'Subtitles', 'Sound design'],
     media: [],
     note: 'First-draft turnaround can be as fast as 24 hours when the brief is clear.',
@@ -64,7 +64,7 @@ export const creativeWork: CreativeWork[] = [
     approach:
       'I organized the edit around momentum, music and rapid visual payoff. Training, trainers and the new space appear as one energetic experience instead of a checklist of event moments.',
     result:
-      'The launch feels immediate and physical. The piece introduces the location while retaining the pace and confidence expected from a fitness brand.',
+      'The final cut prioritizes training, trainers and the new space over event chronology, producing a faster social launch piece that still introduces the location.',
     services: ['Launch video', 'Social edit', 'Pacing', 'Brand content'],
     media: [],
   },
@@ -74,14 +74,14 @@ export const creativeWork: CreativeWork[] = [
     category: 'Visual Experiments',
     year: 'Ongoing',
     featured: true,
-    summary: 'This is where I let an idea earn its structure before pretending it deserves a campaign.',
+    summary: 'Selected tests of graphics, content formats and visual directions.',
     problem:
-      'Not every useful visual direction begins with a client brief. Some need room to fail, mutate and reveal whether they are a one-off image or the beginning of a repeatable system.',
+      'Some visual ideas need testing before it is clear whether they work once or can support a repeatable format.',
     approach:
-      'I test graphics, content formats and product-adjacent ideas in public-facing labs such as LeanLogicLab and Unblurbrief, then keep only the patterns that remain useful beyond the first post.',
+      'I use public-facing projects such as LeanLogicLab and Unblurbrief to test graphics and content formats at a small scale, then keep the approaches that remain useful across multiple posts.',
     result:
-      'The experiments feed better systems rather than filling an archive. What appears here has either taught me something reusable or become strong enough to stand on its own.',
-    services: ['Social design', 'Creative direction', 'Content systems', 'Experiments'],
+      'This page collects selected tests and the formats they helped clarify. It does not present them as a finished client campaign.',
+    services: ['Social design', 'Creative direction', 'Content formats', 'Visual testing'],
     media: [],
     links: [
       { label: '@leanlogiclab', href: 'https://www.instagram.com/leanlogiclab/' },
