@@ -130,6 +130,7 @@
   .project-card:hover .project-card-preview { transform: none; }
   .project-card-surface { inset: 0 calc(var(--gutter) * -.5); }
   .project-card-actions { gap: .85rem; }
+  .dev-reel-item h3 { font-size: clamp(3.25rem,13vw,6rem); overflow-wrap: normal; }
 
   .page-hero { padding-top: 4rem; }
   .page-hero h1,
