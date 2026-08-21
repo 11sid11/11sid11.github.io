@@ -3,6 +3,7 @@ import SiteHeader from '@/components/SiteHeader.astro';
 import SiteFooter from '@/components/SiteFooter.astro';
 import CustomCursor from '@/components/CustomCursor.astro';
 import ScrollEngine from '@/components/ScrollEngine.astro';
+import ParticleScrollShell from '@/components/ParticleScrollShell.astro';
 import '@/styles/global.css';
 import '@/styles/responsive.css';
 
@@ -10,12 +11,14 @@ interface Props {
   title?: string;
   description?: string;
   pageClass?: string;
+  particleScroll?: boolean;
 }
 
 const {
   title = 'Siddharth Sahoo — Developer & Visual Creator',
   description = 'Siddharth Sahoo builds software, automations, open-source tools, and visual work for the internet.',
   pageClass = '',
+  particleScroll = false,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).toString();
 ---
@@ -39,10 +42,21 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).to
     <title>{title}</title>
   </head>
   <body class={pageClass}>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <SiteHeader />
-    <main id="main"><slot /></main>
-    <SiteFooter />
+    {particleScroll ? (
+      <ParticleScrollShell>
+        <a class="skip-link" href="#main">Skip to content</a>
+        <SiteHeader />
+        <main id="main"><slot /></main>
+        <SiteFooter />
+      </ParticleScrollShell>
+    ) : (
+      <>
+        <a class="skip-link" href="#main">Skip to content</a>
+        <SiteHeader />
+        <main id="main"><slot /></main>
+        <SiteFooter />
+      </>
+    )}
     <ScrollEngine />
     <CustomCursor />
   </body>

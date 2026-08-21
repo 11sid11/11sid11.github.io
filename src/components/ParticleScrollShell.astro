@@ -1,0 +1,127 @@
+<div class="particle-scroll-shell" data-particle-shell data-particle-state="pending">
+  <canvas class="particle-scroll-source" data-particle-source layoutsubtree="true" aria-hidden="true"></canvas>
+  <div class="particle-scroll-content" data-particle-content data-scroll-root><slot /></div>
+  <canvas class="particle-scroll-output" data-particle-output aria-hidden="true"></canvas>
+</div>
+
+<script>
+  import { createParticleScroll, supportsHtmlInCanvas } from '@/lib/particle-scroll';
+
+  document.querySelectorAll('[data-particle-shell]').forEach((node) => {
+    if (!(node instanceof HTMLElement) || node.dataset.particleInitialized) return;
+    const source = node.querySelector('[data-particle-source]');
+    const content = node.querySelector('[data-particle-content]');
+    const output = node.querySelector('[data-particle-output]');
+    if (!(source instanceof HTMLCanvasElement) || !(content instanceof HTMLElement) || !(output instanceof HTMLCanvasElement)) return;
+
+    node.dataset.particleInitialized = 'true';
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let instance: ReturnType<typeof createParticleScroll> = null;
+    let anchor: Comment | null = null;
+    let active = false;
+
+    const announceScrollRoot = (root: HTMLElement | null) => {
+      document.dispatchEvent(new CustomEvent('sid:scroll-root-change', { detail: { root } }));
+    };
+
+    const restore = (state = 'failed') => {
+      active = false;
+      instance?.destroy();
+      instance = null;
+      const context = output.getContext('webgl2');
+      if (context && !context.isContextLost()) context.getExtension('WEBGL_lose_context')?.loseContext();
+      if (anchor?.parentNode && content.parentNode !== anchor.parentNode) anchor.after(content);
+      anchor?.remove();
+      anchor = null;
+      node.classList.remove('is-native');
+      document.documentElement.classList.remove('particle-scroll-active');
+      output.width = 1;
+      output.height = 1;
+      node.dataset.particleState = state;
+      announceScrollRoot(null);
+    };
+
+    const hasWebGl2 = () => {
+      const probe = document.createElement('canvas');
+      const context = probe.getContext('webgl2');
+      if (!context) return false;
+      context.getExtension('WEBGL_lose_context')?.loseContext();
+      return true;
+    };
+
+    const start = () => {
+      if (motionQuery.matches) {
+        node.dataset.particleState = 'reduced-motion';
+        return;
+      }
+      if (!supportsHtmlInCanvas() || !hasWebGl2()) {
+        node.dataset.particleState = 'unsupported';
+        return;
+      }
+
+      anchor = document.createComment('particle-scroll-content');
+      content.before(anchor);
+      source.append(content);
+      node.classList.add('is-native');
+      document.documentElement.classList.add('particle-scroll-active');
+
+      try {
+        instance = createParticleScroll(
+          { source, content, output },
+          {
+            point: 0.72,
+            band: 320,
+            density: 3,
+            size: 1.2,
+            spread: 140,
+            gravity: 0.25,
+            drift: 0.35,
+            swirl: 36,
+            stagger: 0.55,
+            fade: 0.65,
+            settle: 0.8,
+            smoothing: 0.4,
+          },
+        );
+      } catch (error) {
+        console.warn('Particle Scroll could not start; restoring normal page scrolling.', error);
+        restore();
+        return;
+      }
+
+      if (!instance) {
+        restore();
+        return;
+      }
+
+      active = true;
+      node.dataset.particleState = 'active';
+      announceScrollRoot(content);
+      requestAnimationFrame(() => source.requestPaint?.());
+    };
+
+    output.addEventListener('webglcontextlost', (event) => {
+      event.preventDefault();
+      if (active) restore('context-lost');
+    });
+    motionQuery.addEventListener('change', () => {
+      if (motionQuery.matches && active) restore('reduced-motion');
+    });
+    window.addEventListener('pagehide', () => instance?.destroy(), { once: true });
+    start();
+  });
+</script>
+
+<style is:global>
+  .particle-scroll-source,
+  .particle-scroll-output { display: none; }
+  .particle-scroll-content { min-width: 0; }
+  .particle-scroll-shell.is-native { position: fixed; inset: 0; z-index: 0; overflow: hidden; background: var(--bg); }
+  .particle-scroll-shell.is-native .particle-scroll-source,
+  .particle-scroll-shell.is-native .particle-scroll-output { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+  .particle-scroll-shell.is-native .particle-scroll-source { z-index: 0; }
+  .particle-scroll-shell.is-native .particle-scroll-output { z-index: 2; pointer-events: none; }
+  .particle-scroll-shell.is-native .particle-scroll-content { width: 100%; height: 100%; overflow: auto; overscroll-behavior: contain; background: var(--bg); }
+  html.particle-scroll-active,
+  html.particle-scroll-active body { height: 100%; overflow: hidden; }
+</style>

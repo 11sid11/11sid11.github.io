@@ -48,20 +48,28 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     </div>
   </section>
 
-  <section class="contact-band" aria-label="Social profiles">
+  <section class="contact-band about-contact" aria-label="Social profiles">
     <div>
       <span class="kicker">Talk</span>
       <h2>Where to find me.</h2>
       <p>X and Discord are the most direct ways to reach me. GitHub is where the code is. Instagram is where the visual side leaks out.</p>
     </div>
-    <div>
+    <div class="about-social-panel">
       <span class="kicker">Elsewhere</span>
-      <div class="contact-actions">
-        <a class="cta-button" href="https://x.com/sid_flac" target="_blank" rel="noreferrer">X / @sid_flac ↗</a>
-        <a class="cta-button" href="https://discord.com/users/456027988417314816" target="_blank" rel="noreferrer">Discord ↗</a>
-        <a class="cta-button" href="https://github.com/11sid11" target="_blank" rel="noreferrer">GitHub / 11sid11 ↗</a>
-        <a class="cta-button" href="https://www.instagram.com/sid.flac/" target="_blank" rel="noreferrer">Instagram / @sid.flac ↗</a>
-      </div>
+      <nav class="social-directory" aria-label="Social links">
+        <a class="social-directory-card" href="https://x.com/sid_flac" target="_blank" rel="noreferrer">
+          <span class="social-directory-index">01 / X</span><strong>@sid_flac</strong><span>Updates + quick conversations</span><i aria-hidden="true">↗</i>
+        </a>
+        <a class="social-directory-card" href="https://discord.com/users/456027988417314816" target="_blank" rel="noreferrer">
+          <span class="social-directory-index">02 / Discord</span><strong>Open profile</strong><span>Direct conversations</span><i aria-hidden="true">↗</i>
+        </a>
+        <a class="social-directory-card" href="https://github.com/11sid11" target="_blank" rel="noreferrer">
+          <span class="social-directory-index">03 / GitHub</span><strong>11sid11</strong><span>Code + public projects</span><i aria-hidden="true">↗</i>
+        </a>
+        <a class="social-directory-card" href="https://www.instagram.com/sid.flac/" target="_blank" rel="noreferrer">
+          <span class="social-directory-index">04 / Instagram</span><strong>@sid.flac</strong><span>Visual work + experiments</span><i aria-hidden="true">↗</i>
+        </a>
+      </nav>
     </div>
   </section>
 </BaseLayout>

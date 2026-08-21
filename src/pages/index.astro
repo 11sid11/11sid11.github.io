@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import SignalTranslator from '@/components/SignalTranslator.astro';
+import AsciiTypeSculpture from '@/components/AsciiTypeSculpture.astro';
 import ProjectCard from '@/components/ProjectCard.astro';
 import CreativeCard from '@/components/CreativeCard.astro';
 import { projects } from '@/data/projects';
@@ -9,7 +9,7 @@ import { creativeWork } from '@/data/creative';
 const featuredDev = projects.filter((project) => project.featured).slice(0, 3);
 const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3);
 ---
-<BaseLayout pageClass="home-page">
+<BaseLayout pageClass="home-page" particleScroll>
   <section class="hero-v2" aria-labelledby="home-title" data-scroll-progress="section">
     <div class="hero-v2-stage">
       <div class="hero-v2-grid" aria-hidden="true"></div>
@@ -34,7 +34,7 @@ const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3
           </div>
 
           <div class="hero-v2-artifact-wrap">
-            <SignalTranslator />
+            <AsciiTypeSculpture />
           </div>
         </div>
 
@@ -120,24 +120,3 @@ const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3
     </div>
   </section>
 </BaseLayout>
-
-<script is:inline>
-  (() => {
-    const translator = document.querySelector('[data-signal-translator]');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const finePointer = window.matchMedia('(pointer: fine)').matches;
-
-    if (!(translator instanceof HTMLElement) || reducedMotion || !finePointer) return;
-    translator.addEventListener('pointermove', (event) => {
-      const rect = translator.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-      translator.style.setProperty('--signal-rx', `${(y * -3).toFixed(2)}deg`);
-      translator.style.setProperty('--signal-ry', `${(x * 4).toFixed(2)}deg`);
-    });
-    translator.addEventListener('pointerleave', () => {
-      translator.style.removeProperty('--signal-rx');
-      translator.style.removeProperty('--signal-ry');
-    });
-  })();
-</script>

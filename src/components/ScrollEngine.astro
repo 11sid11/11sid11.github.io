@@ -13,15 +13,19 @@
     }
 
     let ticking = false;
-    let lastY = window.scrollY;
+    let scrollRoot = document.querySelector('[data-particle-shell].is-native [data-scroll-root]');
+    if (!(scrollRoot instanceof HTMLElement)) scrollRoot = null;
+    const getScrollY = () => scrollRoot instanceof HTMLElement ? scrollRoot.scrollTop : window.scrollY;
+    const getViewportHeight = () => scrollRoot instanceof HTMLElement ? scrollRoot.clientHeight : window.innerHeight;
+    let lastY = getScrollY();
     let lastTime = performance.now();
 
     const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
     const render = () => {
       const now = performance.now();
-      const y = window.scrollY;
-      const viewport = Math.max(1, window.innerHeight);
+      const y = getScrollY();
+      const viewport = Math.max(1, getViewportHeight());
       const deltaTime = Math.max(16, now - lastTime);
       const velocity = clamp((y - lastY) / deltaTime, -1.5, 1.5);
 
@@ -63,8 +67,19 @@
       requestAnimationFrame(render);
     };
 
-    window.addEventListener('scroll', requestRender, { passive: true });
+    const addScrollListener = () => (scrollRoot || window).addEventListener('scroll', requestRender, { passive: true });
+    const removeScrollListener = () => (scrollRoot || window).removeEventListener('scroll', requestRender);
+
+    addScrollListener();
     window.addEventListener('resize', requestRender, { passive: true });
+    document.addEventListener('sid:scroll-root-change', (event) => {
+      removeScrollListener();
+      const nextRoot = event instanceof CustomEvent ? event.detail?.root : null;
+      scrollRoot = nextRoot instanceof HTMLElement ? nextRoot : null;
+      lastY = getScrollY();
+      addScrollListener();
+      requestRender();
+    });
     document.addEventListener('visibilitychange', () => {
       if (!document.hidden) requestRender();
     });
