@@ -1,49 +1,90 @@
-<div class="cursor-dot" data-cursor aria-hidden="true"><span data-cursor-label></span></div>
+<div class="cursor-point" data-cursor-point aria-hidden="true"></div>
+<div class="cursor-frame" data-cursor-frame aria-hidden="true">
+  <i class="corner corner-tl"></i>
+  <i class="corner corner-tr"></i>
+  <i class="corner corner-br"></i>
+  <i class="corner corner-bl"></i>
+  <span data-cursor-label></span>
+</div>
 <script is:inline>
   (() => {
     const finePointer = window.matchMedia('(pointer: fine)').matches;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!finePointer || reducedMotion) return;
 
-    const cursor = document.querySelector('[data-cursor]');
+    const point = document.querySelector('[data-cursor-point]');
+    const frame = document.querySelector('[data-cursor-frame]');
     const label = document.querySelector('[data-cursor-label]');
-    if (!(cursor instanceof HTMLElement) || !(label instanceof HTMLElement)) return;
+    if (!(point instanceof HTMLElement) || !(frame instanceof HTMLElement) || !(label instanceof HTMLElement)) return;
 
     document.documentElement.classList.add('custom-cursor-active');
-    let x = -100;
-    let y = -100;
-    let targetX = x;
-    let targetY = y;
+
+    let pointerX = -100;
+    let pointerY = -100;
+    let frameX = pointerX;
+    let frameY = pointerY;
+    let running = true;
+
+    const movePoint = () => {
+      point.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0)`;
+    };
 
     const render = () => {
-      x += (targetX - x) * 0.24;
-      y += (targetY - y) * 0.24;
-      cursor.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      if (!running) return;
+      frameX += (pointerX - frameX) * 0.2;
+      frameY += (pointerY - frameY) * 0.2;
+      frame.style.transform = `translate3d(${frameX}px, ${frameY}px, 0)`;
       requestAnimationFrame(render);
     };
 
+    const inferLabel = (target) => {
+      if (!(target instanceof Element)) return '';
+      const explicit = target.getAttribute('data-cursor-text');
+      if (explicit) return explicit;
+      if (target.matches('[data-live-link]')) return 'LIVE ↗';
+      if (target.matches('[data-case-link]')) return 'NOTES';
+      if (target.matches('[data-media-link]')) return 'VIEW';
+      if (target instanceof HTMLAnchorElement && target.target === '_blank') return 'OPEN ↗';
+      return target.matches('a, button') ? 'OPEN' : '';
+    };
+
     window.addEventListener('pointermove', (event) => {
-      targetX = event.clientX;
-      targetY = event.clientY;
-      cursor.classList.add('is-visible');
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      movePoint();
+      point.classList.add('is-visible');
+      frame.classList.add('is-visible');
     }, { passive: true });
 
     document.addEventListener('pointerover', (event) => {
-      const target = event.target instanceof Element ? event.target.closest('a, button, [data-cursor-text]') : null;
-      const text = target?.getAttribute('data-cursor-text') || (target ? 'OPEN' : '');
-      cursor.classList.toggle('is-active', Boolean(target));
-      label.textContent = text;
+      const target = event.target instanceof Element
+        ? event.target.closest('a, button, [data-cursor-text], [data-media-link], [data-live-link], [data-case-link]')
+        : null;
+      frame.classList.toggle('is-active', Boolean(target));
+      frame.classList.toggle('is-media', Boolean(target?.matches('[data-media-link]')));
+      label.textContent = inferLabel(target);
     });
 
     document.addEventListener('pointerout', (event) => {
-      const next = event.relatedTarget instanceof Element ? event.relatedTarget.closest('a, button, [data-cursor-text]') : null;
+      const next = event.relatedTarget instanceof Element
+        ? event.relatedTarget.closest('a, button, [data-cursor-text], [data-media-link], [data-live-link], [data-case-link]')
+        : null;
       if (!next) {
-        cursor.classList.remove('is-active');
+        frame.classList.remove('is-active', 'is-media');
         label.textContent = '';
       }
     });
 
-    document.addEventListener('mouseleave', () => cursor.classList.remove('is-visible'));
-    render();
+    document.documentElement.addEventListener('mouseleave', () => {
+      point.classList.remove('is-visible');
+      frame.classList.remove('is-visible');
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      running = !document.hidden;
+      if (running) requestAnimationFrame(render);
+    });
+
+    requestAnimationFrame(render);
   })();
 </script>

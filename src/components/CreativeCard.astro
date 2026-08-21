@@ -9,11 +9,11 @@ interface Props {
 const { work, index = 0 } = Astro.props;
 const cover = work.media[0];
 ---
-<article class:list={['creative-card', !cover && 'creative-card-type']} data-reveal>
-  <a href={`/creative/${work.slug}/`} class="creative-card-link" aria-label={`Open ${work.title}`}>
+<article class:list={['creative-card', !cover && 'creative-card-type']} data-scroll-progress="viewport">
+  <a href={`/creative/${work.slug}/`} class="creative-card-link" aria-label={`Open ${work.title}`} data-media-link data-cursor-text="VIEW">
     {cover ? (
       <div class="creative-card-media">
-        <img src={cover.src} alt={cover.alt} loading="lazy" width="1028" height="580" />
+        <img src={cover.src} alt={cover.alt} loading="lazy" decoding="async" width="1027" height="578" />
       </div>
     ) : (
       <div class="creative-type-art" aria-hidden="true">

@@ -1,0 +1,86 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  compact?: boolean;
+}
+
+const { slug, title, compact = false } = Astro.props;
+---
+<div class:list={['product-preview', `preview-${slug}`, compact && 'is-compact']} aria-hidden="true">
+  <div class="preview-browserbar">
+    <span></span><span></span><span></span>
+    <div class="preview-url">{slug}.local</div>
+  </div>
+
+  <div class="preview-stage">
+    {slug === 'aftersum' ? (
+      <>
+        <aside class="aftersum-rail">
+          <strong>A</strong>
+          <i></i><i></i><i></i><i></i>
+        </aside>
+        <div class="aftersum-ui">
+          <div class="preview-heading"><span>Overview</span><b>August</b></div>
+          <div class="metric-row"><span></span><span></span><span></span></div>
+          <div class="chart-card"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="list-card"><span></span><span></span><span></span></div>
+        </div>
+      </>
+    ) : slug === 'batchd' ? (
+      <>
+        <div class="batchd-feed">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="batchd-panel">
+          <div class="panel-mark">BATCHD</div>
+          <div class="panel-toggle"><span></span><b>Likes</b></div>
+          <div class="panel-toggle"><span></span><b>Replies</b></div>
+          <div class="panel-stats"><i></i><i></i><i></i></div>
+          <div class="panel-action">GO</div>
+        </div>
+      </>
+    ) : slug === 'spoti-sync' ? (
+      <>
+        <div class="sheet-grid"></div>
+        <aside class="spoti-panel">
+          <div class="spoti-mark">●</div>
+          <strong>Spoti Sync</strong>
+          <div class="spoti-job"><span></span><span></span><span></span></div>
+          <div class="spoti-job"><span></span><span></span><span></span></div>
+          <div class="spoti-action">SYNC NOW</div>
+        </aside>
+      </>
+    ) : slug === 'rituon' ? (
+      <>
+        <div class="rituon-sky"><i></i><i></i><i></i></div>
+        <div class="rituon-glass">
+          <small>ATMOSPHERIC MATCH</small>
+          <strong>BHUBANESWAR<br/>↔ KYOTO</strong>
+          <div class="rituon-radio"><span>▶</span><b>LIVE RADIO</b></div>
+        </div>
+      </>
+    ) : slug === 'mockaroo' ? (
+      <>
+        <div class="mock-sidebar"><strong>M</strong><span></span><span></span><span></span></div>
+        <div class="mock-main">
+          <small>MOCK 03 · GENERAL SCIENCE</small>
+          <strong>18:42</strong>
+          <div class="mock-question"></div>
+          <div class="mock-options"><span></span><span></span><span></span><span></span></div>
+        </div>
+      </>
+    ) : (
+      <>
+        <div class="lab-grid"></div>
+        <div class="lab-card">
+          <small>PRIVATE LAB</small>
+          <strong>{title}</strong>
+          <span>BUILD / TEST / REPEAT</span>
+        </div>
+      </>
+    )}
+  </div>
+
+  <div class="preview-caption"><span>{title}</span><span>PRODUCT VIEW</span></div>
+</div>

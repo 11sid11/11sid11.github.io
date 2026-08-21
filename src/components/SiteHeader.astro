@@ -1,20 +1,23 @@
 ---
 const { pathname } = Astro.url;
-
+const mode = pathname.startsWith('/dev') ? 'dev' : pathname.startsWith('/creative') ? 'creative' : 'neutral';
 const nav = [
-  { href: '/dev/', label: 'DEV' },
-  { href: '/creative/', label: 'CREATIVE' },
-  { href: '/about/', label: 'ABOUT' },
+  { href: '/dev/', label: 'DEV', index: '01' },
+  { href: '/creative/', label: 'CREATIVE', index: '02' },
+  { href: '/about/', label: 'ABOUT', index: '03' },
 ];
 ---
-<header class="site-header" data-header>
-  <a class="brand" href="/" aria-label="Siddharth Sahoo home">
-    <span>SID</span><span class="brand-dot">.</span><span>IS-A</span><span class="brand-dot">.</span><span>DEV</span>
+<header class="site-header" data-header data-mode={mode}>
+  <a class="brand" href="/" aria-label="Siddharth Sahoo home" data-cursor-text="HOME">
+    <span class="brand-word">SID</span><span class="brand-period">.</span>
+    <span class="brand-domain">IS-A.DEV</span>
   </a>
   <nav class="site-nav" aria-label="Primary navigation">
     {nav.map((item) => (
-      <a href={item.href} aria-current={pathname.startsWith(item.href) ? 'page' : undefined}>{item.label}</a>
+      <a href={item.href} aria-current={pathname.startsWith(item.href) ? 'page' : undefined}>
+        <span>{item.index}</span>{item.label}
+      </a>
     ))}
   </nav>
-  <a class="header-contact" href="https://x.com/sid_flac" target="_blank" rel="noreferrer">@SID_FLAC ↗</a>
+  <a class="header-contact" href="https://x.com/sid_flac" target="_blank" rel="noreferrer" data-cursor-text="X ↗">@SID_FLAC ↗</a>
 </header>

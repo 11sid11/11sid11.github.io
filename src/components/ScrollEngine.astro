@@ -1,0 +1,74 @@
+<script is:inline>
+  (() => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const sections = Array.from(document.querySelectorAll('[data-scroll-progress]'));
+    const header = document.querySelector('[data-header]');
+    if (!sections.length && !header) return;
+
+    if (reducedMotion) {
+      sections.forEach((section) => {
+        if (section instanceof HTMLElement) section.style.setProperty('--scroll-progress', '0.5');
+      });
+      return;
+    }
+
+    let ticking = false;
+    let lastY = window.scrollY;
+    let lastTime = performance.now();
+
+    const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+
+    const render = () => {
+      const now = performance.now();
+      const y = window.scrollY;
+      const viewport = Math.max(1, window.innerHeight);
+      const deltaTime = Math.max(16, now - lastTime);
+      const velocity = clamp((y - lastY) / deltaTime, -1.5, 1.5);
+
+      sections.forEach((section) => {
+        if (!(section instanceof HTMLElement)) return;
+        const rect = section.getBoundingClientRect();
+        const mode = section.dataset.scrollProgress;
+        let progress;
+
+        if (mode === 'section') {
+          const travel = Math.max(1, rect.height - viewport);
+          progress = clamp((-rect.top) / travel);
+        } else {
+          progress = clamp((viewport - rect.top) / (viewport + rect.height));
+        }
+
+        const phase2 = clamp((progress - 0.18) / 0.32);
+        const phase3 = clamp((progress - 0.55) / 0.32);
+        section.style.setProperty('--scroll-progress', progress.toFixed(4));
+        section.style.setProperty('--scroll-progress-percent', `${(progress * 100).toFixed(2)}%`);
+        section.style.setProperty('--scroll-phase-2-percent', `${(phase2 * 100).toFixed(2)}%`);
+        section.style.setProperty('--scroll-phase-3-percent', `${(phase3 * 100).toFixed(2)}%`);
+        section.style.setProperty('--scroll-velocity', velocity.toFixed(4));
+      });
+
+      if (header instanceof HTMLElement) {
+        header.classList.toggle('is-condensed', y > 72);
+      }
+
+      lastY = y;
+      lastTime = now;
+      ticking = false;
+      document.dispatchEvent(new CustomEvent('sid:scroll-frame', { detail: { y, velocity } }));
+    };
+
+    const requestRender = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(render);
+    };
+
+    window.addEventListener('scroll', requestRender, { passive: true });
+    window.addEventListener('resize', requestRender, { passive: true });
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) requestRender();
+    });
+
+    requestRender();
+  })();
+</script>
