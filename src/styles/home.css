@@ -54,9 +54,9 @@
   justify-content: space-between;
   gap: 1rem;
   color: var(--muted-2);
-  font: 650 .65rem/1.4 ui-monospace, monospace;
+  font: 650 .7rem/1.4 ui-monospace, monospace;
   text-transform: uppercase;
-  letter-spacing: .09em;
+  letter-spacing: .075em;
 }
 
 .hero-v2-main {

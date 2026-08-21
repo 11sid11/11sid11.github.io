@@ -172,8 +172,8 @@ button, input, textarea, select { font: inherit; }
   align-items: center;
   justify-content: center;
   gap: clamp(1rem, 2.6vw, 2.2rem);
-  font-size: .7rem;
-  letter-spacing: .1em;
+  font-size: .79rem;
+  letter-spacing: .075em;
 }
 .site-nav a {
   position: relative;
@@ -184,7 +184,7 @@ button, input, textarea, select { font: inherit; }
   color: var(--muted);
   transition: color 160ms ease;
 }
-.site-nav a > span { color: var(--muted-2); font-size: .56rem; }
+.site-nav a > span { color: var(--muted-2); font-size: .64rem; }
 .site-nav a::after {
   content: "";
   position: absolute;
@@ -207,8 +207,8 @@ button, input, textarea, select { font: inherit; }
 .header-contact {
   justify-self: end;
   position: relative;
-  font: 650 .69rem/1 ui-monospace, monospace;
-  letter-spacing: .08em;
+  font: 650 .75rem/1 ui-monospace, monospace;
+  letter-spacing: .065em;
   color: var(--paper);
 }
 .header-contact::after {
