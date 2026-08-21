@@ -1,8 +1,8 @@
 @media (max-width: 1100px) {
   .hero-v2-main { grid-template-columns: minmax(0,1.2fr) minmax(15rem,.8fr); gap: 1.5rem; }
   .hero-v2-title { font-size: clamp(5rem,14vw,10rem); }
-  .ascii-sculpture { min-height: 17rem; }
-  .ascii-sculpture-field { min-height: 15.5rem; }
+  .reactive-globe { min-height: 17rem; }
+  .reactive-globe-field { min-height: 15.5rem; }
   .project-card-grid { grid-template-columns: 2.5rem minmax(0,1fr) minmax(16rem,.72fr); }
   .dev-reel-layout { grid-template-columns: minmax(19rem,.85fr) minmax(0,1.15fr); gap: 3rem; }
   .creative-scroll-stage { grid-template-columns: minmax(15rem,.34fr) minmax(0,.66fr); }
@@ -50,8 +50,8 @@
   .hero-v2-fill { transform: none; }
   .hero-v2-fill::after { clip-path: inset(35% 0 0 0); }
   .hero-v2-artifact-wrap { position: relative; right: auto; top: auto; width: min(100%, 34rem); opacity: 1; transform: none; }
-  .ascii-sculpture { min-height: 17rem; }
-  .ascii-sculpture-field { min-height: 15.5rem; }
+  .reactive-globe { min-height: 17rem; }
+  .reactive-globe-field { min-height: 15.5rem; }
   .hero-v2-sub { margin-left: 0; max-width: 34rem; transform: none; }
   .portal-v2-dev,
   .portal-v2-creative { transform: none; }
@@ -118,10 +118,10 @@
   .hero-v2-inner { padding-top: 1.4rem; }
   .hero-v2-title { font-size: clamp(4.2rem,22vw,7.2rem); line-height: .8; }
   .hero-v2-artifact-wrap { display: block; width:100%;justify-self:stretch; }
-  .ascii-sculpture { min-height: 15rem; }
-  .ascii-sculpture-field { min-height: 13.5rem; }
-  .ascii-sculpture figcaption { grid-template-columns:1fr auto;font-size:.54rem; }
-  .ascii-sculpture figcaption span:nth-child(2) { display:none; }
+  .reactive-globe { min-height: 15rem; }
+  .reactive-globe-field { min-height: 13.5rem; }
+  .reactive-globe figcaption { grid-template-columns:1fr auto;font-size:.54rem; }
+  .reactive-globe figcaption span:nth-child(2) { display:none; }
   .hero-v2-portals { grid-template-columns: 1fr; }
   .portal-v2 + .portal-v2 { border-left: 0; border-top: 1px solid var(--line-strong); }
   .portal-v2 { min-height: 8rem; }
@@ -198,7 +198,7 @@
   .about-block,
   .about-interlude-word { transform: none !important; }
   .hero-v2-fill::after { clip-path: inset(0); }
-  .ascii-sculpture figcaption span:nth-child(2) { display:none; }
+  .reactive-globe figcaption span:nth-child(2) { display:none; }
   .creative-frame-2,
   .creative-frame-3,
   .creative-detail { display: none; }
