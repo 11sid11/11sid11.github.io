@@ -50,7 +50,7 @@ const firstLive = firstProject ? getLive(firstProject) : '';
             <div class="preview-stack" data-preview-stack>
               {projects.map((project, index) => (
                 <div class:list={['preview-stack-card', index === 0 && 'is-active']} data-preview-card={project.slug}>
-                  <ProductPreview slug={project.slug} title={project.title} />
+                  <ProductPreview project={project} />
                 </div>
               ))}
               <div class="live-preview-shade" aria-hidden="true"></div>

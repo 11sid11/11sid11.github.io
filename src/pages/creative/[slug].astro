@@ -27,7 +27,7 @@ const { work } = Astro.props;
     <div class="media-stack">
       {work.media.map((media, index) => (
         <figure data-reveal>
-          <img src={media.src} alt={media.alt} loading={index === 0 ? 'eager' : 'lazy'} width="1028" height="580" />
+          <img src={media.src} alt={media.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" width="1024" height="576" />
           <figcaption>FRAME {String(index + 1).padStart(2, '0')} / SELECTED THUMBNAIL STUDY</figcaption>
         </figure>
       ))}
@@ -44,8 +44,19 @@ const { work } = Astro.props;
       {work.note && <p>// {work.note}</p>}
     </aside>
     <div class="case-content" data-reveal>
-      <h2>The work</h2>
-      <p>{work.description}</p>
+      <span class="case-section-label">01 / THE PROBLEM</span>
+      <h2>What had to read</h2>
+      <p>{work.problem}</p>
+
+      <span class="case-section-label">02 / THE APPROACH</span>
+      <h2>How I shaped it</h2>
+      <p>{work.approach}</p>
+
+      <span class="case-section-label">03 / THE RESULT</span>
+      <h2>What the frame does</h2>
+      <p>{work.result}</p>
+
+      <span class="case-section-label">04 / THE WORK</span>
       <h2>What I handled</h2>
       <ul class="case-highlights">
         {work.services.map((service) => <li>{service}</li>)}

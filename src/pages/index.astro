@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import WebGLArtifact from '@/components/WebGLArtifact.astro';
+import SignalTranslator from '@/components/SignalTranslator.astro';
 import ProjectCard from '@/components/ProjectCard.astro';
 import CreativeCard from '@/components/CreativeCard.astro';
 import { projects } from '@/data/projects';
@@ -10,7 +10,7 @@ const featuredDev = projects.filter((project) => project.featured).slice(0, 3);
 const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3);
 ---
 <BaseLayout pageClass="home-page">
-  <section class="hero-v2" aria-labelledby="home-title" data-scroll-progress="section">
+  <section class="hero-v2" aria-labelledby="home-title" data-scroll-progress="section" data-hero-system>
     <div class="hero-v2-stage">
       <div class="hero-v2-grid" aria-hidden="true"></div>
       <div class="hero-v2-signal" aria-hidden="true"></div>
@@ -18,42 +18,38 @@ const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3
       <div class="hero-v2-inner">
         <div class="hero-v2-topline">
           <span>Siddharth Sahoo / developer + visual creator</span>
-          <span>Scroll to separate the system</span>
+          <span>Stay a minute. The split becomes obvious.</span>
         </div>
 
         <div class="hero-v2-main">
           <div class="hero-v2-copy">
-            <h1 class="hero-v2-title" id="home-title">
-              <span class="hero-v2-solid">I BUILD</span>
-              <span class="hero-v2-fill" data-text="THINGS.">THINGS.</span>
+            <h1 class="hero-v2-title" id="home-title" aria-label="I build things.">
+              <span class="hero-v2-solid" aria-hidden="true">I BUILD</span>
+              <span class="hero-v2-fill" data-text="THINGS." aria-hidden="true">THINGS.</span>
             </h1>
             <p class="hero-v2-sub">
-              Software when the problem is technical. Visuals when attention is the problem.
-              <strong>Usually some version of both.</strong>
+              I build useful things. Some run in a browser; some have to stop a thumb mid-scroll.
+              <strong>The job is still making the answer obvious.</strong>
             </p>
           </div>
 
           <div class="hero-v2-artifact-wrap">
-            <WebGLArtifact />
-            <div class="artifact-caption">
-              <span>ONE PRACTICE</span>
-              <span>TWO OUTPUTS</span>
-            </div>
+            <SignalTranslator />
           </div>
         </div>
 
         <div class="hero-v2-portals" aria-label="Choose a portfolio path">
-          <a class="portal-v2 portal-v2-dev" href="/dev/" data-cursor-text="DEV →">
+          <a class="portal-v2 portal-v2-dev" href="/dev/" data-cursor-text="DEV →" data-signal-mode="dev">
             <span class="portal-v2-label">01 / ENGINEERING</span>
             <strong>DEV</strong>
             <span class="portal-v2-arrow" aria-hidden="true">↗</span>
-            <p>Products, automations, browser tools and open-source work.</p>
+            <p>When the friction needs a system, this is where I solve it.</p>
           </a>
-          <a class="portal-v2 portal-v2-creative" href="/creative/" data-cursor-text="CREATIVE →">
+          <a class="portal-v2 portal-v2-creative" href="/creative/" data-cursor-text="CREATIVE →" data-signal-mode="creative">
             <span class="portal-v2-label">02 / VISUAL</span>
             <strong>CREATIVE</strong>
             <span class="portal-v2-arrow" aria-hidden="true">↗</span>
-            <p>Editing, thumbnails, brand work and visual experiments.</p>
+            <p>When the idea needs attention, this is where I shape the signal.</p>
           </a>
         </div>
       </div>
@@ -65,9 +61,9 @@ const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3
       <div class="duality-word duality-word-left">BUILD</div>
       <div class="duality-center">
         <span class="kicker">Same instinct, different material.</span>
-        <p>I like solving the actual problem. Sometimes that means architecture and code. Sometimes it means pacing, hierarchy and the frame.</p>
+        <p>I start with the thing that is not working. Architecture, pacing and hierarchy are just different materials for fixing it.</p>
       </div>
-      <div class="duality-word duality-word-right">HOLD</div>
+      <div class="duality-word duality-word-right">FRAME</div>
     </div>
   </section>
 
@@ -76,8 +72,8 @@ const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3
       <div class="section-head kinetic-head" data-scroll-progress="viewport">
         <div><span class="kicker">Selected / dev</span></div>
         <div>
-          <h2>Things with code in them.</h2>
-          <p class="section-intro">The fastest way to understand a project is to see the thing. Product links take you there; case notes stay optional.</p>
+          <h2>Useful things, in the wild.</h2>
+          <p class="section-intro">You can open the real product first. If you want the thinking behind it, I left the problem and the decisions one click deeper.</p>
         </div>
       </div>
       <div class="project-list">
@@ -92,8 +88,8 @@ const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3
       <div class="section-head kinetic-head" data-scroll-progress="viewport">
         <div><span class="kicker">Selected / creative</span></div>
         <div>
-          <h2>Things meant to be seen.</h2>
-          <p class="section-intro">The work gets the space. Fewer cards, larger frames, and enough motion to reveal decisions instead of distracting from them.</p>
+          <h2>Work built to earn the glance.</h2>
+          <p class="section-intro">A strong frame should explain itself quickly. The notes show what had to read first, and why each decision survived.</p>
         </div>
       </div>
       <div class="creative-grid">
@@ -124,3 +120,44 @@ const featuredCreative = creativeWork.filter((work) => work.featured).slice(0, 3
     </div>
   </section>
 </BaseLayout>
+
+<script is:inline>
+  (() => {
+    const hero = document.querySelector('[data-hero-system]');
+    if (!(hero instanceof HTMLElement)) return;
+
+    const translator = hero.querySelector('[data-signal-translator]');
+    const triggers = hero.querySelectorAll('[data-signal-mode]');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+    const setState = (state = '') => {
+      if (state) hero.dataset.signalState = state;
+      else delete hero.dataset.signalState;
+    };
+
+    triggers.forEach((trigger) => {
+      if (!(trigger instanceof HTMLElement)) return;
+      const state = trigger.dataset.signalMode ?? '';
+      trigger.addEventListener('pointerenter', () => setState(state));
+      trigger.addEventListener('pointerleave', () => {
+        if (!trigger.matches(':focus-visible')) setState();
+      });
+      trigger.addEventListener('focus', () => setState(state));
+      trigger.addEventListener('blur', () => setState());
+    });
+
+    if (!(translator instanceof HTMLElement) || reducedMotion || !finePointer) return;
+    translator.addEventListener('pointermove', (event) => {
+      const rect = translator.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
+      translator.style.setProperty('--signal-rx', `${(y * -3).toFixed(2)}deg`);
+      translator.style.setProperty('--signal-ry', `${(x * 4).toFixed(2)}deg`);
+    });
+    translator.addEventListener('pointerleave', () => {
+      translator.style.removeProperty('--signal-rx');
+      translator.style.removeProperty('--signal-ry');
+    });
+  })();
+</script>

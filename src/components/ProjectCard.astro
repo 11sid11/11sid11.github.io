@@ -44,7 +44,7 @@ const primary = project.links.find((link) => link.kind === 'live') ?? project.li
       data-live-link={primary?.kind === 'live' ? true : undefined}
       data-cursor-text={primary?.kind === 'live' ? 'LIVE ↗' : 'OPEN'}
     >
-      <ProductPreview slug={project.slug} title={project.title} compact />
+      <ProductPreview project={project} compact />
       <span class="project-preview-arrow" aria-hidden="true">↗</span>
     </a>
   </div>

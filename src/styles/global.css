@@ -329,7 +329,7 @@ main { min-height: 70vh; }
   gap: 2rem;
 }
 .contact-band > div + div { border-left: 1px solid var(--line); }
-.contact-band h2 { margin: 0; max-width: 9ch; font-size: clamp(3rem, 6.8vw, 7rem); line-height: .88; letter-spacing: -.06em; text-transform: uppercase; }
+.contact-band h2 { margin: 0; max-width: 9ch; font-size: clamp(3rem, 6.8vw, 7rem); line-height: .88; letter-spacing: -.06em; text-transform: uppercase; overflow-wrap: anywhere; }
 .contact-band p { color: var(--muted); max-width: 34rem; margin: 0; }
 .contact-actions { display: flex; flex-wrap: wrap; gap: .7rem; }
 
