@@ -1,7 +1,6 @@
 @import './home.css';
 @import './work.css';
 @import './case.css';
-@import './responsive.css';
 
 :root {
   --bg: #090909;

@@ -204,9 +204,6 @@
 .preview-stack-card { position:absolute;inset:0;opacity:0;transform:scale(.985);transition:opacity 260ms ease,transform 420ms var(--ease-out); }
 .preview-stack-card.is-active { opacity:1;transform:none; }
 .preview-stack-card .product-preview { border:0;height:100%;aspect-ratio:auto; }
-.live-preview-frame { position:absolute;inset:0;z-index:3;width:160%;height:160%;border:0;transform:scale(.625);transform-origin:top left;pointer-events:none;background:transparent;opacity:.88;filter:saturate(.9) contrast(.98);transition:opacity 240ms ease,filter 240ms ease; }
-.live-preview-frame.is-transitioning { opacity:0; }
-.live-preview-frame.is-hidden { opacity:0;visibility:hidden; }
 .live-preview-shade { position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(to top,rgba(9,9,9,.24),transparent 30%); }
 .live-preview-meta { display:flex;justify-content:space-between;gap:1rem;margin-top:.75rem;color:var(--muted-2);font-size:.6rem;letter-spacing:.08em; }
 .dev-reel-intro { min-height:42vh;padding:0 0 clamp(4rem,8vw,7rem); }
@@ -215,7 +212,7 @@
 .dev-reel-item { --scroll-progress:.5;min-height:72vh;padding:clamp(2.5rem,6vw,5.5rem) 0;border-top:1px solid var(--line);opacity:calc(.48 + var(--scroll-progress)*.52);transform:translate3d(0,calc((.5 - var(--scroll-progress))*2rem),0);transition:color 180ms ease; }
 .dev-reel-item.is-active { color:var(--fg); }
 .dev-reel-item-top { display:flex;justify-content:space-between;gap:1rem;color:var(--muted);font:650 .66rem/1.35 ui-monospace,monospace;letter-spacing:.07em;text-transform:uppercase; }
-.dev-reel-item h3 { margin:clamp(2rem,4vw,3.5rem) 0 1rem;font-size:clamp(4rem,8.3vw,9rem);line-height:.78;letter-spacing:-.07em;text-transform:uppercase; }
+.dev-reel-item h3 { margin:clamp(2rem,4vw,3.5rem) 0 1rem;font-size:clamp(4rem,8.3vw,9rem);line-height:.78;letter-spacing:-.07em;text-transform:uppercase;overflow-wrap:anywhere; }
 .dev-reel-item > p { margin:0;max-width:46rem;color:var(--muted);font-size:clamp(1rem,1.5vw,1.16rem); }
 .dev-reel-item.is-active h3 { color:var(--acid); }
 .dev-reel-item:nth-of-type(3n+2).is-active h3 { color:var(--ember); }

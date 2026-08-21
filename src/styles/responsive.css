@@ -30,6 +30,11 @@
   .page-hero-copy,
   .case-body,
   .footer-main { grid-template-columns: 1fr; }
+  .section-head > *,
+  .page-hero-copy > *,
+  .case-body > *,
+  .footer-main > *,
+  .contact-band > div { min-width: 0; }
   .section-head { gap: 1.5rem; }
   .page-hero-copy { gap: 1rem; }
 
@@ -129,7 +134,9 @@
   .page-hero { padding-top: 4rem; }
   .page-hero h1,
   .case-title,
-  .creative-case-title { font-size: clamp(4rem,20vw,7rem); transform: none; }
+  .creative-case-title { font-size: clamp(3.2rem,15vw,7rem); max-width: 100%; transform: none; }
+  .section-head h2,
+  .contact-band h2 { max-width: 100%; }
 
   .creative-scroll-feature { height: auto; padding: 4rem 0; }
   .creative-scroll-stage { position: relative; top: auto; height: auto; min-height: 0; display: block; overflow: visible; }

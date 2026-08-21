@@ -53,21 +53,12 @@ const firstLive = firstProject ? getLive(firstProject) : '';
                   <ProductPreview slug={project.slug} title={project.title} />
                 </div>
               ))}
-              <iframe
-                class:list={['live-preview-frame', !firstLive && 'is-hidden']}
-                data-project-frame
-                src={firstLive || 'about:blank'}
-                title={firstProject ? `${firstProject.title} live product preview` : 'Live product preview'}
-                loading="lazy"
-                tabindex="-1"
-                aria-hidden="true"
-              ></iframe>
               <div class="live-preview-shade" aria-hidden="true"></div>
             </div>
           </div>
           <div class="live-preview-meta">
             <span data-preview-index>01 / {firstProject?.title ?? ''}</span>
-            <span>LIVE PRODUCT REEL</span>
+            <span>PRODUCT PREVIEW REEL</span>
           </div>
         </div>
       </div>
@@ -182,14 +173,12 @@ const firstLive = firstProject ? getLive(firstProject) : '';
 
       const items = Array.from(root.querySelectorAll('[data-reel-item]')).filter((item) => item instanceof HTMLElement);
       const cards = Array.from(root.querySelectorAll('[data-preview-card]')).filter((card) => card instanceof HTMLElement);
-      const frame = root.querySelector('[data-project-frame]');
       const address = root.querySelector('[data-preview-address]');
       const open = root.querySelector('[data-preview-open]');
       const index = root.querySelector('[data-preview-index]');
       if (!items.length) return;
 
       let activeSlug = '';
-      let requestedUrl = frame instanceof HTMLIFrameElement ? frame.src : '';
       let ticking = false;
 
       const activate = (item) => {
@@ -214,19 +203,6 @@ const firstLive = firstProject ? getLive(firstProject) : '';
           open.textContent = live ? 'OPEN LIVE ↗' : 'OPEN ↗';
         }
 
-        if (frame instanceof HTMLIFrameElement) {
-          frame.classList.add('is-transitioning');
-          if (live) {
-            frame.classList.remove('is-hidden');
-            if (requestedUrl !== live) {
-              requestedUrl = live;
-              frame.src = live;
-            }
-          } else {
-            frame.classList.add('is-hidden');
-          }
-          window.setTimeout(() => frame.classList.remove('is-transitioning'), 320);
-        }
       };
 
       const update = () => {
